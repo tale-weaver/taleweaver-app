@@ -4,6 +4,8 @@ import "./globals.css";
 
 import { ReduxProviders } from "@/features/ReduxProviders";
 
+import Header from "@/components/header/header";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,7 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ReduxProviders>{children}</ReduxProviders>
+        <ReduxProviders>
+          <main className="flex flex-col min-h-screen">
+            <Header />
+            {children}
+          </main>
+        </ReduxProviders>
       </body>
     </html>
   );
