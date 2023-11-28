@@ -18,59 +18,26 @@ const MainNav = () => {
         Home
       </Link>
       <Link
-        href="/api/auth/signin"
+        href="/about"
         className={cn(
           "transition-colors hover:text-foreground/80",
-          pathname?.startsWith("/api/auth/signin")
+          pathname?.startsWith("/about")
             ? "text-foreground"
             : "text-foreground/60"
         )}
       >
-        Sign In
+        About
       </Link>
       <Link
-        href="/api/auth/signout"
+        href="/profile"
         className={cn(
           "transition-colors hover:text-foreground/80",
-          pathname?.startsWith("/api/auth/signout")
+          pathname?.startsWith("/profile")
             ? "text-foreground"
             : "text-foreground/60"
         )}
       >
-        Sign Out
-      </Link>
-      <Link
-        href="/server"
-        className={cn(
-          "transition-colors hover:text-foreground/80",
-          pathname?.startsWith("/server")
-            ? "text-foreground"
-            : "text-foreground/60"
-        )}
-      >
-        Server
-      </Link>
-      <Link
-        href="/client"
-        className={cn(
-          "transition-colors hover:text-foreground/80",
-          pathname?.startsWith("/client")
-            ? "text-foreground"
-            : "text-foreground/60"
-        )}
-      >
-        Client
-      </Link>
-      <Link
-        href="/extra"
-        className={cn(
-          "transition-colors hover:text-foreground/80",
-          pathname?.startsWith("/extra")
-            ? "text-foreground"
-            : "text-foreground/60"
-        )}
-      >
-        Extra
+        Profile
       </Link>
     </nav>
   );

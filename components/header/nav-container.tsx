@@ -22,7 +22,7 @@ export async function NavContainer() {
       </div>
       <div id="nav-right">
         {session?.user ? (
-          <UserAuth />
+          <UserAuth imgUrl={session?.user.image as string} />
         ) : (
           <Link className={buttonVariants()} href="/sign-in">
             Sign in
