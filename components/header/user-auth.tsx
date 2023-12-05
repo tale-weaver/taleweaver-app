@@ -5,7 +5,7 @@ import { signOut } from "next-auth/react";
 import Image from "next/image";
 
 const UserAuth = ({
-  imgUrl = "https://xsgames.co/randomusers/avatar.php?g=pixel",
+  imgUrl = "https://gravatar.com/avatar/b6eada68a0879b7af38a4ddf32e06aa7?s=400&d=robohash&r=x",
 }) => {
   return (
     <div className="flex justify-between items-center">

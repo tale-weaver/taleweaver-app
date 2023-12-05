@@ -1,6 +1,6 @@
 "use client";
 
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -15,7 +15,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { Github, Shell } from "lucide-react";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 

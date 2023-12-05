@@ -1,6 +1,7 @@
 import type { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
+import jwt from "jsonwebtoken";
 
 export const options: NextAuthOptions = {
   providers: [
@@ -43,6 +44,24 @@ export const options: NextAuthOptions = {
     async signIn(data) {
       console.log("signIn", data);
       return true;
+    },
+    async jwt({ token, user, account }) {
+      const payload = {
+        name: token.name,
+        email: token.email,
+        jti: token.jti,
+      };
+      return {
+        ...token,
+        ...user,
+        accessToken: jwt.sign(payload, process.env.NEXTAUTH_SECRET as string),
+      };
+    },
+    async session({ session, token, user }) {
+      session.user = token;
+      console.log("session", session);
+      console.log("call session");
+      return session;
     },
   },
   pages: {

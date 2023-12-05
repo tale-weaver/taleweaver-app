@@ -11,7 +11,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "xsgames.co",
+        hostname: "gravatar.com",
         port: "",
       },
     ],
