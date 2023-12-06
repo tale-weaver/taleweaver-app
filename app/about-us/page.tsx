@@ -18,8 +18,9 @@ export default function Home() {
       <br></br>
       <h1>會員權益</h1>
       <div>
-      會員註冊後，即可參與故事接龍的投票，每格故事僅能投下一票。（這邊我先亂掰）<br></br>
-      每次參與投票可以獲得 1 點、上傳作品且被選為故事則可獲得 15 點，集滿 20 點後，每格故事改為可以投下不重複的兩票。 <br></br>
+      會員註冊後，即可參與故事接龍的投票，每格故事僅能投下一票。<br></br>
+      可付費<a href="./subscription" style={{ color: 'blue', textDecoration: 'underline' }}>升級 VIP 會員</a>，即可享有專屬頭像框、下載及 AI 製圖服務。 <br></br>
+      VIP 會員若無於到期前取消，將會以原價自動續訂。 <br></br>
       </div>
     </div>
     </main>

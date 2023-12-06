@@ -24,7 +24,7 @@ const Intro  = ({}) =>{
           src="/image/more.jpg"  alt = 'More'
           width={280} 
           height={400} 
-          onClick={() => window.location.href="./about_us"}  
+          onClick={() => window.location.href="./about-us"}  
         />
       </div>
         

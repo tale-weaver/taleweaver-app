@@ -23,10 +23,9 @@ const Bar = ({section}:{section:String}) => {
           <li><Image src="/image/p5.jpg" alt="p5"  width={300} height={300} /></li>
           <li><Image src="/image/p6.jpg" alt="p6"  width={300} height={300} /></li>
           <li><Image src="/image/p7.jpg" alt="p7"  width={300} height={300} /></li>
-          <li><Image src="/image/p4.jpg" alt="p4"  width={300} height={300} /></li>
-          <li><Image src="/image/p5.jpg" alt="p5"  width={300} height={300} /></li>
-          <li><Image src="/image/p6.jpg" alt="p6"  width={300} height={300} /></li>
-          <li><Image src="/image/p7.jpg" alt="p7"  width={300} height={300} /></li>
+          <li><Image src="/image/p4.jpg" alt="p8"  width={300} height={300} /></li>
+          <li><Image src="/image/p5.jpg" alt="p9"  width={300} height={300} /></li>
+          <li><Image src="/image/p6.jpg" alt="p10"  width={300} height={300} /></li>
         </ul>
       </div>
       </div>
