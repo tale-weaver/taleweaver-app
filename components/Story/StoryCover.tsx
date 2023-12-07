@@ -28,8 +28,8 @@ export default function StoryCover(story:any) {
             <div>
                 <p>{story.storyname}</p>
                 {/* <p>Post Date: {story.date}</p> */}
-                {/* //like and comments should only +=1 and the records will acquire from the backend */}
                 {/* <div className='grid grid-flow-col'>
+                    這裡要用Chu的componnent
                     <LikeButton />
                     <CommentButton />
                 </div> */}

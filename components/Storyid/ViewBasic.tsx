@@ -20,6 +20,7 @@ export default function ViewBasic({story} : {story: any}) {
 
             <div className='grid grid-flow-row text-center m-4'>
                 <h1 className='text-xl m-2'>{story.storyname}</h1>
+                {/* 這裡要用Chu的component */}
                 {/* <LikeButton />
                 <CommentButton /> */}
                 <p>Likes: {story.numlikes}</p>
