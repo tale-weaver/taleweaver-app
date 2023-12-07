@@ -19,7 +19,7 @@ export default function ViewBasic({story} : {story: any}) {
             </div>
 
             <div className='grid grid-flow-row text-center m-4'>
-                <h1 className='m-2'>Name: {story.storyname}</h1>
+                <h1 className='text-xl m-2'>{story.storyname}</h1>
                 {/* <LikeButton />
                 <CommentButton /> */}
                 <p>Likes: {story.numlikes}</p>

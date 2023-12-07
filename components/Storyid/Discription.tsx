@@ -10,8 +10,8 @@ export default function Discription ({records}:{records: any}) {
 
     if (state === 'uploading') {
         return (
-            <div className="flex flex-col text-center">
-                <p>現正投稿中: 第{page_number}頁</p>
+            <div className="flex flex-col text-center self-center m-4">
+                <p className='text-xl'>現正投稿中: 第{page_number}頁</p>
                 <p>點選封面即可查看過往的頁數喔</p>
                 <Button>圖片上傳</Button>
                 {/* <Link href='/StoryUploadPage'><Button>圖片上傳</Button></Link> */}

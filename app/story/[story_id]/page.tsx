@@ -31,8 +31,7 @@ export default function StoryView() {
     return (
         <div>
             <p>只有網址上的ID是對應點進來的圖片，其他都是假的</p>
-            <p>storyID: {params}</p>
-            <div className="flex flex-row">
+            <div className="flex flex-row content-center m-4">
                 <ViewBasic story={story} />
                 <Discription records={disc} />
             </div>
