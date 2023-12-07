@@ -4,31 +4,43 @@ import React, { useState } from 'react';
 import ImageUploadPage from './ImageUploadPage';
 import ImageUploadConfirm from './ImageUploadConfirm';
 
-const StoryUpload = () => {
-  // control visiaility of ImageUploadConfirm
-  const [isImageUploadConfirmVisible, setIsImageUploadConfirmVisible] = useState(false);
+const StoryUpload: React.FC = () => {
+  const [uploadData, setUploadData] = useState<UploadData | null>(null);
 
-  // upload button 
-  const handleUploadClick = () => {
-    // 设置 ImageUploadConfirm 的可见性为 true
-    setIsImageUploadConfirmVisible(true);
+  const handleUpload = (data: UploadData) => {
+    setUploadData(data);
   };
 
-  // 处理 ImageUploadConfirm 关闭事件
-  const handleConfirmClose = () => {
-    // 设置 ImageUploadConfirm 的可见性为 false
-    setIsImageUploadConfirmVisible(false);
+  const handleConfirm = () => {
+    // 好像沒有跑進這裡
+    
+    // 在這裡處理確認上傳後的邏輯，可以發送到後端等
+    console.log("Confirmed Upload:", uploadData);
+    // 清空上傳數據，以便下次使用
+    setUploadData(null);
+
   };
 
   return (
-    <div>
-      <ImageUploadPage onUploadClick={handleUploadClick} />
-
-      {isImageUploadConfirmVisible && (
-        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-80">
-          <ImageUploadConfirm onClose={handleConfirmClose} />
+    <div className="fixed inset-0 flex items-center justify-center">
+      {uploadData ? (
+        <div className="fixed flex items-center justify-center bg-white bg-opacity-80">
+          <ImageUploadConfirm
+            storyName={uploadData.storyName}
+            page={uploadData.page}
+            selectedImage={uploadData.selectedImage}
+            imageDescription={uploadData.imageDescription}
+            show={true}
+            onCancel={() => setUploadData(null)}
+            onConfirm={handleConfirm}
+          />
+        </div>
+      ) : (
+        <div>
+          <ImageUploadPage onUpload={handleUpload} />
         </div>
       )}
+
     </div>
   );
 };

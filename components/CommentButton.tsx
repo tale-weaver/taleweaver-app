@@ -14,15 +14,14 @@ const CommentButton: React.FC = () => {
       commentsElement.scrollIntoView({ behavior: "smooth" }); // scroll to <div id="comments"></div>
     }
 
-    setCommentCount((prevCount) => prevCount + 1);
   };
 
   return (
-    <div>
+    <div className="flex items-center">
       <Button variant="outline" onClick={movetoCommentSection}>
         <MessageCircle/>
       </Button>
-      <span>  {commentCount}</span>
+      <span className="pl-2">  {commentCount}</span>
     </div>
   );
 };

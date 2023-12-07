@@ -1,6 +1,6 @@
 import StoryUpload from "@/components/StoryUpload/StoryUpload";
 
-export default function StoryUploadPage() {
+export default function storyupload() {
     return (
         <main>  
             <StoryUpload />
