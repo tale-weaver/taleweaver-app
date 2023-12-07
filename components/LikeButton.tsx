@@ -14,11 +14,12 @@ const LikeButton: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="flex items-center">
+      {/* like = add to user collection; unlike = remove from user collection */}
       <Button variant={isFilledHeart ? "destructive" : "outline"} onClick={handleLike}>
         <Heart color={isFilledHeart ? "white" : "black"} />
       </Button>
-      <span>  {likeCount}</span>
+      <span className="pl-2">  {likeCount}</span>
     </div>
   );
 };
