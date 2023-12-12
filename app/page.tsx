@@ -1,17 +1,15 @@
-// app/page.tsx
-'use client'
-import Image from 'next/image'
-import Intro from '@/components/MainPage/Intro'
-import Bar from '@/components/MainPage/Bar'
+import { options } from "./api/auth/[...nextauth]/options";
+import { getServerSession } from "next-auth/next";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession(options);
   return (
-    <main className="flex min-h-screen flex-col items-center p-24">
-      <div><Intro/></div>
-      <br></br>
-      <div id="finish"><Bar section="已完成故事"/></div>
-      <br></br>
-      <div id="unfinish"><Bar section="未完成故事"/></div>
-    </main>
-  )
+    <div>
+      {session ? (
+        <p>Logged in as {session?.user?.name}</p>
+      ) : (
+        <p>Not logged in</p>
+      )}
+    </div>
+  );
 }
