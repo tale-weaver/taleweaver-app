@@ -15,7 +15,9 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { Github, Shell } from "lucide-react";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import type { UserSignup } from "@/types/user";
+import { useTWMutation } from "@/hooks/useTWMutation";
 
 const FormSchema = z
   .object({
@@ -33,7 +35,7 @@ const FormSchema = z
   });
 
 const SignInForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -44,14 +46,22 @@ const SignInForm = () => {
     },
   });
 
+  const mutation = useTWMutation<UserSignup>("user/signup", (variables) => {
+    router.push(
+      `verify?email=${variables?.email}&username=${variables?.username}`
+    );
+  });
+
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-    console.log(values);
-
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
+    const { username, email, password } = values;
+    const data: UserSignup = {
+      username,
+      email,
+      password,
+      source: "credentials",
+      avatar: "",
+    };
+    mutation.mutate(data);
   };
 
   return (
@@ -119,8 +129,14 @@ const SignInForm = () => {
             )}
           />
         </div>
-        <Button className="w-full mt-6" type="submit" disabled={isLoading}>
-          {isLoading && <Shell className="mr-2 h-4 w-4 animate-spin" />}
+        <Button
+          className="w-full mt-6"
+          type="submit"
+          disabled={mutation.isPending}
+        >
+          {mutation.isPending && (
+            <Shell className="mr-2 h-4 w-4 animate-spin" />
+          )}
           Sign Up with Email
         </Button>
       </form>
@@ -131,9 +147,9 @@ const SignInForm = () => {
         className="w-full"
         variant="outline"
         type="button"
-        disabled={isLoading}
+        disabled={mutation.isPending}
       >
-        {isLoading ? (
+        {mutation.isPending ? (
           <Shell className="mr-2 h-4 w-4 animate-spin" />
         ) : (
           <Github className="mr-2 h-4 w-4" />
@@ -144,9 +160,9 @@ const SignInForm = () => {
         className="w-full mt-2"
         variant="outline"
         type="button"
-        disabled={isLoading}
+        disabled={mutation.isPending}
       >
-        {isLoading ? (
+        {mutation.isPending ? (
           <Shell className="mr-2 h-4 w-4 animate-spin" />
         ) : (
           <svg
@@ -164,9 +180,9 @@ const SignInForm = () => {
         Google
       </Button>
       <p className="text-center text-sm text-gray-600 mt-2">
-        If you don&apos;t have an account, please&nbsp;
-        <Link className="text-blue-500 hover:underline" href="/sign-up">
-          Sign up
+        If you already have an account,{" "}
+        <Link className="text-blue-500 hover:underline" href="/sign-in">
+          Sign In
         </Link>
       </p>
     </Form>

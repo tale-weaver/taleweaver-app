@@ -18,9 +18,15 @@ import { Github, Shell } from "lucide-react";
 import { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
+import { useToast } from "../ui/use-toast";
+import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
-  email: z.string().min(1, "Email is required").email("Invalid email"),
+  username: z
+    .string()
+    .min(1, "Username is required")
+    .min(4, "Username must be at least 4 characters")
+    .max(100),
   password: z
     .string()
     .min(1, "Password is required")
@@ -29,13 +35,15 @@ const FormSchema = z.object({
 
 const SignInForm = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
   const searchParams = useSearchParams();
+  const router = useRouter();
   const callbackUrl = searchParams?.get("callbackUrl") || "/";
   const error = searchParams?.get("error") || null;
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
   });
@@ -50,15 +58,29 @@ const SignInForm = () => {
     setIsLoading(true);
 
     const result = await signIn("credentials", {
-      email: values.email,
+      redirect: false,
+      username: values.username,
       password: values.password,
       callbackUrl: callbackUrl,
     });
 
+    console.log(result);
+
     if (result?.error) {
       setIsLoading(false);
-      alert("Email or password is incorrect or user does not exist");
+      toast({
+        title: "Error",
+        description: result.error,
+        variant: "destructive",
+      });
       return;
+    } else {
+      setIsLoading(false);
+      toast({
+        title: "Success",
+        description: "You have successfully signed in",
+      });
+      router.push(callbackUrl);
     }
   };
 
@@ -83,12 +105,12 @@ const SignInForm = () => {
         <div className="space-y-2">
           <FormField
             control={form.control}
-            name="email"
+            name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder="mail@example.com" {...field} />
+                  <Input placeholder="username" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import { ReduxProviders } from "@/features/ReduxProviders";
-
 import Header from "@/components/header/header";
+import TanProvider from "@/components/providers/TanProvider";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,12 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ReduxProviders>
+        <TanProvider>
           <main className="flex flex-col min-h-screen">
             <Header />
             {children}
           </main>
-        </ReduxProviders>
+          <Toaster />
+        </TanProvider>
       </body>
     </html>
   );

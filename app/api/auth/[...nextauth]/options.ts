@@ -2,6 +2,7 @@ import type { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import jwt from "jsonwebtoken";
+import axios from "axios";
 
 export const options: NextAuthOptions = {
   providers: [
@@ -12,45 +13,58 @@ export const options: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: {
-          label: "Email:",
+        username: {
+          label: "username:",
           type: "text",
-          placeholder: "your email",
+          placeholder: "your username",
         },
         password: { label: "Password:", type: "password" },
       },
       async authorize(credentials) {
-        console.log("credentials", credentials);
-
-        const user = {
-          id: "1",
-          name: "ollie",
-          password: "123123123",
-          email: "ollie@gmail.com",
-        };
-
-        if (
-          credentials?.email === user.email &&
-          credentials?.password === user.password
-        ) {
+        try {
+          const res = await axios.post(
+            `${process.env.BACKEND_URL}user/login_with_credentials`,
+            credentials
+          );
+          const user = {
+            id: res.data.record?._id,
+            name: res.data.record?.username,
+            email: res.data.record?.email,
+            image: res.data.record?.avatar,
+          };
           return user;
-        } else {
-          return null;
+        } catch (error: any) {
+          const errorMessage =
+            error.response?.data?.message || "An error occurred";
+          throw new Error(errorMessage);
         }
       },
     }),
   ],
   callbacks: {
-    async signIn(data) {
-      console.log("signIn", data);
+    async signIn({ user, account, profile }) {
+      if (account?.provider === "github") {
+        const res = await axios.post(`${process.env.BACKEND_URL}user/signup`, {
+          username: user.name,
+          email: user.email,
+          password: "",
+          source: "github",
+          avatar: user.image,
+        });
+
+        console.log("github", res.data.message);
+
+        return true;
+      }
       return true;
     },
     async jwt({ token, user, account }) {
       const payload = {
-        name: token.name,
+        sub: "ryvn4" || token.name,
         email: token.email,
         jti: token.jti,
       };
+
       return {
         ...token,
         ...user,
