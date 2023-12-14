@@ -1,19 +1,13 @@
-import SignUpForm from "@/components/form/sign-up-form";
+import SignUpForm from "@/components/authform/sign-up-form";
+import SignUpHeader from "@/components/authform/sign-up-header";
 
-const page = () => {
+const SignUpPage = () => {
   return (
     <div className="w-full">
-      <div className="flex flex-col space-y-2 text-center mb-6">
-        <h1 className="text-2xl font-semibold tracking-tight">
-          Create an account
-        </h1>
-        <p className="text-sm text-muted-foreground">
-          Enter your details to begin
-        </p>
-      </div>
+      <SignUpHeader />
       <SignUpForm />
     </div>
   );
 };
 
-export default page;
+export default SignUpPage;
