@@ -11,7 +11,10 @@ const  Mainpage = ({}) =>{
       <br></br>
       <div id="finish"><Bar section="已完成故事"/></div>
       <br></br>
-      <div id="unfinish"><Bar section="未完成故事"/></div>
+      <div><Bar section="投票中故事"/></div>
+      <br></br>
+      <div id="unfinish"><Bar section="徵稿中故事"/></div>
+      
     </main>
   )
 }

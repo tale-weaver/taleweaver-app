@@ -89,6 +89,9 @@ const handleButtonClick = (section) => {
   if (section === '已完成故事') {
     window.location.href = "./story?state=finished"; // 修改成實際的 A 網頁路徑
   } else {
-    window.location.href = "./story"; // 修改成實際的 B 網頁路徑
-  }
+    if (section === '徵稿中故事'){
+      window.location.href = "./story?state=submitting";
+    }else{
+    window.location.href = "./story?state=voting"; // 修改成實際的 B 網頁路徑
+  }}
 }
