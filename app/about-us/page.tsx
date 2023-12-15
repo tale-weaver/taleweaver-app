@@ -11,7 +11,7 @@ export default function Home() {
       <br></br>
       <h1>使用說明</h1>
       <div>
-      無須會員，皆可瀏覽所有作品。若想要上傳圖片、參與投票或留言則需<a href="." style={{ color: 'blue', textDecoration: 'underline' }}>註冊會員</a>。<br></br>
+      無須會員，皆可瀏覽所有作品。若想要上傳圖片、參與投票或留言則需<a href="./sign-in" style={{ color: 'blue', textDecoration: 'underline' }}>註冊會員</a>。<br></br>
       註1：圖片上傳後，僅供大眾觀賞，除原創作者外並不享有重製與使用的權利。 <br></br>
       註2：本網站開放上傳 AI 繪製的圖片，但須於文字說明欄明確標注。 
       </div>
