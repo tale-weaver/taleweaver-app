@@ -11,12 +11,12 @@ export default function DisplayInfo({story, disc}:{story:any, disc:any}) {
     const params = searchParams.get('book_id');
 
     return (
-        <div className="grid grid-cols-1 gap-4 justify-items-center">
-            <p>只有網址上的ID是對應點進來的圖片，其他都是假的</p>
+        <div className="grid grid-cols-1 gap-8 justify-items-center">
             <div className="flex flex-row content-center m-4">
                 <ViewBasic story={story} />
                 <Discription records={disc} />
             </div>
+
 
             <div className='w-1/2 m-4'>
                 <CommentSection />

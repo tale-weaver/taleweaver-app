@@ -11,8 +11,8 @@ export default function ViewBasic({story} : {story: any}) {
                 <Image
                     src={story.bookurl}
                     alt="Post"
-                    width={250}
-                    height={150}
+                    width={320}
+                    height={280}
                     style={{ cursor: 'pointer' }}
                 />
 

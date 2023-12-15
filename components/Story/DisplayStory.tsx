@@ -1,13 +1,78 @@
 'use client'
 
 import React from "react";
-import { useState } from "react";
 import StoryCover from "./StoryCover";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from '../ui/button';
-import { Search } from "lucide-react";
+import { Search, ArrowUpDown, LibrarySquare, BookText, ArrowUpSquare, Vote } from "lucide-react";
 
-export default function DisplayStory({ Stories }: { Stories: any }) {
+const Stories = [
+    {
+        bookurl: '/story_images/sea.jpg',
+        bookname: 'sea',
+        book_id: 1,
+        numlikes: 5,
+        numcomments: 4,
+        state: 'finished',
+        date: '2023-11-09'
+    },
+    {
+        bookurl: '/story_images/sunrise.jpg',
+        bookname: 'sunrise',
+        book_id: 2,
+        numlikes: 6,
+        numcomments: 3,
+        state: 'submitting',
+        date: '2023-11-11'
+    },
+    {
+        bookurl: '/story_images/starsky.jpg',
+        bookname: 'starsky',
+        book_id: 3,
+        numlikes: 2,
+        numcomments: 1,
+        state: 'voting',
+        date: '2023-11-01'
+    },
+    {
+        bookurl: '/story_images/galaxy.jpg',
+        bookname: 'galaxy',
+        book_id: 4,
+        numlikes: 4,
+        numcomments: 1,
+        state: 'submitting',
+        date: '2023-11-27'
+    },
+    {
+        bookurl: '/story_images/nebula.jpg',
+        bookname: 'nebula',
+        book_id: 5,
+        numlikes: 0,
+        numcomments: 1,
+        state: 'finished',
+        date: '2023-10-01'
+    },
+    {
+        bookurl: '/story_images/history.jpg',
+        bookname: 'history',
+        book_id: 6,
+        numlikes: 10,
+        numcomments: 6,
+        state: 'finished',
+        date: '2023-10-10'
+    },
+    {
+        bookurl: '/story_images/clock.jpg',
+        bookname: 'clock',
+        book_id: 7,
+        numlikes: 3,
+        numcomments: 0,
+        state: 'submitting',
+        date: '2023-11-06'
+    },
+];
+
+export default function DisplayStory() {
 
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -18,6 +83,8 @@ export default function DisplayStory({ Stories }: { Stories: any }) {
     const term = searchParams.get('term');
     const isAscending = searchParams.get('asce') === 'true';
     
+    //request from the backend
+
 
     const handleChange = (
         newstate: string | null,
@@ -58,25 +125,25 @@ export default function DisplayStory({ Stories }: { Stories: any }) {
 
     return (
         <div>
-            <div className="flex flex-row content-center">
-                <div className='flex justify-start m-4'>
-                    <p className='flex items-center text-base'>Filter</p>
-                    <Button className='m-2' onClick={() => handleChange(null, null, term)}>All</Button>
-                    <Button className='m-2' onClick={() => handleChange('finished', null, term)}>Finished</Button>
-                    <Button className='m-2' onClick={() => handleChange('uploading', null, term)}>Uploading</Button>
-                    <Button className='m-2' onClick={() => handleChange('voting', null, term)}>Voting</Button>
+            <div className="flex flex-row content-center ml-4">
+            {/* <div className="grid grid-cols-3 gird-flow-row content-center"> */}
+                <div className='flex justify-start basis-1/3 m-4 mr-8'>
+                    <Button variant='secondary' className='m-2' onClick={() => handleChange(null, null, term)}>All</Button>
+                    <Button variant='secondary' className='m-2' onClick={() => handleChange('finished', null, term)}><BookText />Finished</Button>
+                    <Button variant='secondary' className='m-2' onClick={() => handleChange('submitting', null, term)}><ArrowUpSquare />Submitting</Button>
+                    <Button variant='secondary' className='m-2' onClick={() => handleChange('voting', null, term)}><Vote />Voting</Button>
                 </div>
 
-                <div className='flex justify-start m-4'>
-                    <p className='flex items-center text-base'>Sort</p>
-                    <Button className='m-2' onClick={() => handleChange(state, 'date', term)}>Date</Button>
-                    <Button className='m-2' onClick={() => handleChange(state, 'likes', term)}>Likes</Button>
-                    <Button className='m-2' onClick={() => handleChange(state, 'comments', term)}>Comments</Button>
+                <div className='flex justify-start basis-1/3 m-4'>
+                    <p className='flex items-center'><ArrowUpDown /></p>
+                    <Button  variant='ghost' className='m-2' onClick={() => handleChange(state, 'date', term)}>Date</Button>
+                    <Button  variant='ghost' className='m-2' onClick={() => handleChange(state, 'likes', term)}>Likes</Button>
+                    <Button  variant='ghost' className='m-2' onClick={() => handleChange(state, 'comments', term)}>Comments</Button>
 
                 </div>
 
-                <div className="flex flex-row self-center m-4">
-                    <div className="self-center"><Search /></div>
+                <div className="flex self-center justify-self-end m-4">
+                    <div className="self-center mr-2"><Search /></div>
                     <form>
                         <input
                             type="text"

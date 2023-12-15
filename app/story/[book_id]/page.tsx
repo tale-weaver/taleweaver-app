@@ -8,9 +8,29 @@ const story = {
     book_id: 6,
     numlikes: 10,
     numcomments: 6,
-    state: 'uploading',
+    state: 'submitting',
     date: '2023-10-10',
-    pages: ['p1', 'p2', 'p3'] //已成功接龍的頁數
+    pages: [    
+    {
+        pageurl: '/pages/p1.JPG',
+        creator: 'Amy'
+    },
+    {
+        pageurl: '/pages/p2.JPG',
+        creator: 'Peter'
+    },
+    {
+        pageurl: '/pages/p3.JPG',
+        creator: 'Jane'
+    },
+    {
+        pageurl: '/pages/p4.JPG',
+        creator: 'Alex'
+    },
+    {
+        pageurl: '/pages/p5.JPG',
+        creator: 'Ryvn'
+    }] //已成功接龍的頁數
 }
 
 const disc = {
