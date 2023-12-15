@@ -42,25 +42,36 @@ export const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account }) {
       if (account?.provider === "github") {
-        const res = await axios.post(`${process.env.BACKEND_URL}user/signup`, {
+        const data = {
           username: user.name,
           email: user.email,
-          password: "",
+          password: `${user.image}-${user.email}`,
           source: "github",
           avatar: user.image,
-        });
+        };
 
-        console.log("github", res.data.message);
+        try {
+          const res = await axios.post(
+            `${process.env.BACKEND_URL}user/signup`,
+            data
+          );
+
+          console.log("github", res.data.message);
+
+          return true;
+        } catch (error) {
+          console.log("github", error.response.data.message);
+        }
 
         return true;
       }
       return true;
     },
-    async jwt({ token, user, account }) {
+    async jwt({ token, user }) {
       const payload = {
-        sub: "ryvn4" || token.name,
+        sub: token.name,
         email: token.email,
         jti: token.jti,
       };
@@ -71,14 +82,13 @@ export const options: NextAuthOptions = {
         accessToken: jwt.sign(payload, process.env.NEXTAUTH_SECRET as string),
       };
     },
-    async session({ session, token, user }) {
+    async session({ session, token }) {
       session.user = token;
-      console.log("session", session);
-      console.log("call session");
       return session;
     },
   },
   pages: {
     signIn: "/sign-in",
+    error: "/sign-in",
   },
 };

@@ -15,7 +15,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { Github, Shell } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useToast } from "../ui/use-toast";
@@ -39,7 +39,7 @@ const SignInForm = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const callbackUrl = searchParams?.get("callbackUrl") || "/";
-  const error = searchParams?.get("error") || null;
+  // const errorMessages = searchParams?.get("error") || "";
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -47,12 +47,6 @@ const SignInForm = () => {
       password: "",
     },
   });
-
-  useEffect(() => {
-    if (error) {
-      alert(error);
-    }
-  }, []);
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
     setIsLoading(true);
@@ -64,23 +58,20 @@ const SignInForm = () => {
       callbackUrl: callbackUrl,
     });
 
-    console.log(result);
-
-    if (result?.error) {
+    if (!result?.error) {
+      setIsLoading(false);
+      toast({
+        title: "Success",
+        description: "You have successfully signed in",
+      });
+      router.replace(callbackUrl);
+    } else {
       setIsLoading(false);
       toast({
         title: "Error",
         description: result.error,
         variant: "destructive",
       });
-      return;
-    } else {
-      setIsLoading(false);
-      toast({
-        title: "Success",
-        description: "You have successfully signed in",
-      });
-      router.push(callbackUrl);
     }
   };
 

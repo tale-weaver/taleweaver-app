@@ -67,7 +67,7 @@ const SubForm: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    // 按鈕
+    // 按鈕按下去的話
     if (isFormValid) {
       console.log("Credit Card Number:", creditCardNumber);
       console.log("CCV:", ccv);

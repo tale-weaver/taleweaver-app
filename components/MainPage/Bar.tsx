@@ -8,12 +8,13 @@ const Bar = ({section}:{section:String}) => {
   return (
     <div>
     <div className="bar-container">
-    <h1>{section}</h1> <Button>find all</Button>
+    
+    <h1>{section}</h1>  <Button onClick={() => handleButtonClick(section)}>find all</Button>
     </div>
     <div className="horizontal-scroll-menu" style={containerStyle}>
       <div className="menu-wrapper">
         <ul className="menu-items">
-          <li onClick={() => window.location.href="./about_us"}> <Image src="/image/p1.jpg" alt="p1" width={300} height={300}/>
+          <li onClick={() => window.location.href="./about-us"}> <Image src="/image/p1.jpg" alt="p1" width={300} height={300}/>
           <a>故事名</a></li>
           <li><Image src="/image/p2.jpg" alt="p2" width={300} height={300} />
           <a>故事名</a></li>
@@ -23,9 +24,6 @@ const Bar = ({section}:{section:String}) => {
           <li><Image src="/image/p5.jpg" alt="p5"  width={300} height={300} /></li>
           <li><Image src="/image/p6.jpg" alt="p6"  width={300} height={300} /></li>
           <li><Image src="/image/p7.jpg" alt="p7"  width={300} height={300} /></li>
-          <li><Image src="/image/p4.jpg" alt="p8"  width={300} height={300} /></li>
-          <li><Image src="/image/p5.jpg" alt="p9"  width={300} height={300} /></li>
-          <li><Image src="/image/p6.jpg" alt="p10"  width={300} height={300} /></li>
         </ul>
       </div>
       </div>
@@ -85,4 +83,15 @@ const containerStyle: React.CSSProperties = {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
+}
+
+const handleButtonClick = (section) => {
+  if (section === '已完成故事') {
+    window.location.href = "./story?state=finished"; // 修改成實際的 A 網頁路徑
+  } else {
+    if (section === '徵稿中故事'){
+      window.location.href = "./story?state=submitting";
+    }else{
+    window.location.href = "./story?state=voting"; // 修改成實際的 B 網頁路徑
+  }}
 }
