@@ -1,13 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { buttonVariants } from "../ui/button";
 import MainNav from "./main-nav";
-import { options } from "@/app/api/auth/[...nextauth]/options";
-import { getServerSession } from "next-auth/next";
+import { useSession } from "next-auth/react";
 import UserAuth from "./user-auth";
 
-export async function NavContainer() {
-  const session = await getServerSession(options);
+export function NavContainer() {
+  const { data: session } = useSession();
 
   return (
     <div className="container hidden md:flex md:justify-between md:items-center h-16">
