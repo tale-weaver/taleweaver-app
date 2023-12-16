@@ -5,6 +5,7 @@ import axios from "axios";
 
 export default function Demo() {
   const queryUser = async () => {
+    console.log("queryUser");
     const { data } = await axios.get("http://127.0.0.1:5000/user");
     return data;
   };

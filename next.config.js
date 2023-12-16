@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
+
   images: {
     remotePatterns: [
       {
@@ -15,10 +16,15 @@ const nextConfig = {
         port: "",
       },
       {
+        protocol: "https",
+        hostname: "picsum.photos",
+        port: "",
+      },
+      {
         protocol: "http",
         hostname: "127.0.0.1",
-        port: "5000"
-      }
+        port: "5000",
+      },
     ],
   },
 };

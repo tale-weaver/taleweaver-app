@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import Header from "@/components/header/header";
+import { Footer } from "@/components/footer/footer";
 import TanProvider from "@/components/providers/TanProvider";
 import NextAuthProvider from "@/components/providers/NextAuthProvider";
 import { Toaster } from "@/components/ui/toaster";
@@ -24,9 +25,16 @@ export default async function RootLayout({
       <body className={inter.className}>
         <NextAuthProvider>
           <TanProvider>
-            <main className="flex flex-col min-h-screen">
+            <main className="relative flex min-h-screen flex-col">
               <Header />
-              {children}
+              <div className="flex-1">
+                <div className="container relative">
+                  <section className="hidden md:block">
+                    <div className="overflow-hidden">{children}</div>
+                  </section>
+                </div>
+              </div>
+              <Footer />
             </main>
             <Toaster />
           </TanProvider>
