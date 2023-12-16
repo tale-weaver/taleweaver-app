@@ -13,6 +13,7 @@ const UserAuth = ({
   const { data: session } = useSession();
 
   if (session?.user) {
+    console.log("token", (session?.user as any)?.accessToken);
     axios.defaults.headers.common["Authorization"] = `Bearer ${
       (session?.user as any)?.accessToken
     }`;
