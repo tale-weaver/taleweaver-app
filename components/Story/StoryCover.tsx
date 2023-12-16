@@ -13,9 +13,8 @@ export default function StoryCover(story: any) {
         else return 0;
     }
     return (
-        // 大小要再調
-        <div className='flex flex-col text-center border m-2 p-4 w-72 hover:bg-gray-400 hover:text-neutral-50'>
-            <div>
+        <div className='border m-2 p-4 w-72 h-84 hover:bg-gray-400 hover:text-neutral-50'>
+            <div className='relative w-64 h-48'>
                 <Link href={{
                     pathname: '/story/book_id',
                     query: { book_id: story.book_id },
@@ -23,9 +22,9 @@ export default function StoryCover(story: any) {
                     <Image
                         src={story.bookurl}
                         alt="Post"
-                        width={250}
-                        height={150}
+                        fill
                         style={{ cursor: 'pointer' }}
+                        className='object-cover'
                     />
                 </Link>
 
