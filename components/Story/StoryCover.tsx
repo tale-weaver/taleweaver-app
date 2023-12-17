@@ -38,8 +38,8 @@ export default function StoryCover(story: any) {
 
                 {/* <p>Post Date: {story.date}</p> */}
                 <div className='grid grid-flow-col justify-evenly'>
-                    <LikeButton />
-                    <CommentButton />
+                    <LikeButton bookId={story.bookId} liked={false} like_nums={story.numlikes} />
+                    <CommentButton comment_nums={story.numcomments}/>
                 </div>
                 {/* <p>Likes: {story.numlikes}</p>
                 <p>Comments: {story.numcomments}</p> */}
