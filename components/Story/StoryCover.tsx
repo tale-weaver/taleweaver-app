@@ -35,10 +35,9 @@ export default function StoryCover(story: any) {
                     <div className='mr-2'>{icons(story.state)}</div>
                     <p className='text-lg mb-2'>{story.bookname}</p>
                 </div>
-
                 {/* <p>Post Date: {story.date}</p> */}
                 <div className='grid grid-flow-col justify-evenly'>
-                    <LikeButton bookId={story.bookId} liked={false} like_nums={story.numlikes} />
+                    <LikeButton bookId={story.book_id} liked={false} like_nums={story.numlikes} />
                     <CommentButton comment_nums={story.numcomments}/>
                 </div>
                 {/* <p>Likes: {story.numlikes}</p>
