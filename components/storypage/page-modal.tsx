@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -17,11 +16,10 @@ export function PageModal({
   children: React.ReactNode;
   page_id?: number;
 }) {
-  console.log("page_id", page_id);
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="max-w-[800px] max-h-[900px] bg-transparent border-none shadow-none">
+      <DialogContent className="max-w-[800px] max-h-[90vh] bg-transparent border-none shadow-none">
         <DialogHeader>
           <DialogTitle></DialogTitle>
         </DialogHeader>

@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import { useSprings, animated } from "@react-spring/web";
-import useMeasure from "react-use-measure";
 import { useDrag } from "react-use-gesture";
 import clamp from "lodash.clamp";
 import { Pages } from "@/data/pages";
@@ -18,7 +17,6 @@ export default function PageVeiwer({
   className,
 }: PageVeiwer) {
   const index = useRef(page_id);
-  // const [ref, { width }] = useMeasure();
   const [props, api] = useSprings(
     Pages.length,
     (i) => ({
@@ -63,11 +61,11 @@ export default function PageVeiwer({
   return (
     <div
       className={cn(
-        "w-[700px] h-[800px] overflow-hidden relative box-border",
+        "w-[700px] h-[80vh] overflow-hidden relative box-border",
         className
       )}
     >
-      <div className="w-[700px] h-[800px] absolute">
+      <div className="w-[700px] h-[80vh] absolute">
         {props.map(({ x, display, scale }, i) => (
           <animated.div
             className="absolute w-full h-full will-change-transform"
