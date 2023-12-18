@@ -1,4 +1,6 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react'
+import { Button } from "../ui/button"
+
 
 interface InputFieldProps {
   label: string;
@@ -20,13 +22,11 @@ const InputField: React.FC<InputFieldProps> = ({ label, isPassword = false, onIn
 
   const validateInput = (value: string, inputLabel: string): boolean => {
     if (inputLabel === 'Credit Card Number') {
-      // 信用卡号码的验证逻辑
-      return /^[0-9]{16}$/.test(value); // 例如，验证输入长度是否为 16
+      return /^[0-9]{16}$/.test(value); 
     } else if (inputLabel === 'CCV') {
-      // CCV 的验证逻辑
-      return /^[0-9]{3}$/.test(value); // 例如，验证输入长度是否为 3
+      return /^[0-9]{3}$/.test(value); 
     }
-    return true; // 默认返回 true，表示验证通过
+    return true; 
   };
 
   return (
@@ -82,12 +82,11 @@ const SubForm: React.FC = () => {
     <div>
       <InputField label="Credit Card Number" onInputChange={handleCreditCardNumberChange} />
       <InputField label="CCV" isPassword onInputChange={handleCcvChange} />
-
       <br />
 
-      <button type="button" onClick={handleSubmit}>
+      <Button type="button" onClick={handleSubmit}>
         Submit
-      </button>
+      </Button>
     </div>
   );
 };

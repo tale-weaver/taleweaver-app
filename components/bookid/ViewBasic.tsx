@@ -33,8 +33,8 @@ export default function ViewBasic({ data }: { data: any }) {
             <div className='grid grid-flow-col mt-4'>
                 <h1 className='flex flex-start text-4xl'>{data.bookname}</h1>
                 <div className='flex flex-row justify-self-end gap-4'>
-                    <LikeButton />
-                    <CommentButton />
+                    <LikeButton bookId={data.bookId} liked={false} like_nums={data.numlikes} />
+                    <CommentButton comment_nums={data.numcomments} />
                 </div>
 
             </div>
