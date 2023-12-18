@@ -14,8 +14,8 @@ export default function StoryCover(story: any) {
     }
 
     return (
-        <div className='border m-2 p-4 w-72 h-84 hover:bg-gray-400 hover:text-neutral-50'>
-            <div className='relative w-64 h-48'>
+        <div className='static border m-2 p-4 h-84 hover:bg-gray-400 hover:text-neutral-50'>
+            <div className='relative h-48 cursor-pointer'>
                 <Link href={{
                     pathname: '/story/book_id',
                     query: { book_id: story.book_id },
@@ -24,7 +24,7 @@ export default function StoryCover(story: any) {
                         src={story.bookurl}
                         alt="Post"
                         fill
-                        style={{ cursor: 'pointer' }}
+                        sizes="100vw"
                         className='object-cover'
                     />
                 </Link>

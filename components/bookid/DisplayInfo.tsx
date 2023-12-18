@@ -1,10 +1,8 @@
-'use client';
-
 import React from "react";
-import { useSearchParams } from "next/navigation";
 import ViewBasic from "./ViewBasic";
 import Discription from "./Discription";
 import CommentSection from "../CommentSection";
+import dynamic from "next/dynamic";
 
 //這是個假資料
 const story = {
@@ -22,22 +20,22 @@ const story = {
             "status": "submitting"
         },
         {
-            "time_stamp": "2023/12/18 14:04:00",
+            "time_stamp": "2023/12/18 18:00:00",
             "round": 1,
             "status": "voting"
         },
         {
-            "time_stamp": "2023/12/18 14:06:00",
+            "time_stamp": "2023/12/18 18:30:00",
             "round": 2,
             "status": "submitting"
         },
         {
-            "time_stamp": "2023/12/18 14:06:30",
+            "time_stamp": "2023/12/18 19:00:00",
             "round": 2,
             "status": "voting"
         },
         {
-            "time_stamp": "2023/12/18 14:06:40",
+            "time_stamp": "2023/12/18 19:30:00",
             "round": 2,
             "status": "finished"
         }
@@ -46,12 +44,12 @@ const story = {
 
 
 export default function DisplayInfo() {
-    const searchParams = useSearchParams();
-    const params = searchParams.get('book_id');
+
+    const Discription = dynamic(() => import('./Discription'), { ssr: false })
 
     return (
-        <div className="grid grid-cols-1 gap-4 justify-items-center">
-                <ViewBasic data={story} />
+        <div className="grid grid-cols-1 gap-4 justify-items-center" >
+                <ViewBasic records={story} />
                 <Discription records={story} />
             <div className='w-full m-4'>
                 <CommentSection />

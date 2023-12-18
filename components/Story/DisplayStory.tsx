@@ -22,9 +22,18 @@ const data = {
         date: '2023-11-09',
     },
     {
+        bookurl: '/story_images/starsky.jpg',
+        bookname: 'starsky',
+        book_id: 2,
+        numlikes: 3,
+        numcomments: 4,
+        state: 'voting',
+        date: '2023-11-09',
+    },
+    {
         bookurl: '/story_images/galaxy.jpg',
         bookname: 'galaxy',
-        book_id: 4,
+        book_id: 3,
         numlikes: 4,
         numcomments: 1,
         state: 'submitting',
@@ -33,7 +42,7 @@ const data = {
     {
         bookurl: '/story_images/history.jpg',
         bookname: 'history',
-        book_id: 6,
+        book_id: 4,
         numlikes: 10,
         numcomments: 6,
         state: 'finished',
@@ -42,7 +51,7 @@ const data = {
     {
         bookurl: '/story_images/clock.jpg',
         bookname: 'clock',
-        book_id: 7,
+        book_id: 5,
         numlikes: 3,
         numcomments: 0,
         state: 'submitting',
@@ -83,8 +92,8 @@ export function StorySection(query: any) {
 
     // else {        
         
-
         const stories = data.records;
+        console.log(stories);
         const filteredStories = stories?.filter((story: any) => {
             return (
                 (!(query.query.state) || story.state === query.query.state)
@@ -106,7 +115,7 @@ export function StorySection(query: any) {
 
         return (
             <div>
-                <div className="grid grid-cols-4 gap-4">
+                <div className="grid grid-cols-4">
 
                     {sortedStories?.map((story: any, index: number) => (
                         <StoryCover
@@ -159,9 +168,9 @@ export default function DisplayStory() {
 
     return (
         <div>
-            <div className="flex flex-row content-center ml-4">
+            <div className="grid grid-flow-col justify-items-start content-center">
                 {/* <div className="grid grid-cols-3 gird-flow-row content-center"> */}
-                <div className='flex justify-start basis-1/3 m-4 mr-8'>
+                <div className='flex justify-start basis-1/3 mt-4 mb-4 mr-8'>
                     <Button variant='secondary' className='m-2' onClick={() => handleChange(null, null, term)}>All</Button>
                     <Button variant='secondary' className='m-2' onClick={() => handleChange('finished', null, term)}><BookText />Finished</Button>
                     <Button variant='secondary' className='m-2' onClick={() => handleChange('submitting', null, term)}><ArrowUpSquare />Submitting</Button>
@@ -176,7 +185,7 @@ export default function DisplayStory() {
 
                 </div>
 
-                <div className="flex self-center justify-self-end m-4">
+                <div className="flex self-center justify-self-end">
                     <div className="self-center mr-2"><Search /></div>
                     <form>
                         <input
