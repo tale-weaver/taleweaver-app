@@ -1,11 +1,11 @@
-import Demo from "@/components/profile/demo";
-import StoryPageMain from "@/components/storypage/story-page-main";
+import StoryPagePrimary from "@/components/storypage/story-page-primary";
+import StoryPageSecondary from "@/components/storypage/story-page-secondary";
 
 export default async function Profile() {
   return (
     <div>
-      <Demo />
-      <StoryPageMain />
+      <StoryPagePrimary />
+      <StoryPageSecondary />
     </div>
   );
 }

@@ -25,6 +25,7 @@
     "axios": "^1.6.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "framer-motion": "^10.16.16",
     "jsonwebtoken": "^9.0.2",
     "lodash.clamp": "^4.0.3",
     "lucide-react": "^0.293.0",

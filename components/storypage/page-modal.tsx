@@ -8,14 +8,28 @@ import {
 } from "@/components/ui/dialog";
 
 import PageVeiwer from "./page-veiwer";
+import { ArrowBigUpDash } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function PageModal({
   children,
   page_id = 0,
+  is_voting = false,
 }: {
   children: React.ReactNode;
   page_id?: number;
+  is_voting?: boolean;
 }) {
+  const arrowVariants = {
+    move: {
+      y: [0, -20, 0],
+      transition: {
+        duration: 1,
+        ease: "easeInOut",
+        repeat: Infinity,
+      },
+    },
+  };
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -24,7 +38,13 @@ export function PageModal({
           <DialogTitle></DialogTitle>
         </DialogHeader>
         <PageVeiwer className="rounded-xl" page_id={page_id} />
-        <DialogFooter>hahaha</DialogFooter>
+        {is_voting && (
+          <DialogFooter>
+            <motion.div variants={arrowVariants} animate="move">
+              <ArrowBigUpDash className="opacity-40 w-6 h-6 bottom-2 right-2 hover:opacity-100" />
+            </motion.div>
+          </DialogFooter>
+        )}
       </DialogContent>
     </Dialog>
   );

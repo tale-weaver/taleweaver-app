@@ -12,6 +12,7 @@ interface PageProps extends React.HTMLAttributes<HTMLDivElement> {
   width?: number;
   height?: number;
   page_id?: number;
+  is_voting?: boolean;
 }
 
 export function PageCard({
@@ -20,6 +21,7 @@ export function PageCard({
   width,
   height,
   page_id = 0,
+  is_voting = false,
   className,
   ...props
 }: PageProps) {
@@ -35,7 +37,7 @@ export function PageCard({
             )}
           />
         )}
-        <PageModal page_id={page_id}>
+        <PageModal page_id={page_id} is_voting={is_voting}>
           <Image
             src={page.image}
             alt={page.title}
