@@ -9,7 +9,8 @@ const Bar = ({section}:{section:String}) => {
     <div>
     <div className="bar-container">
     
-    <h1>{section}</h1>  <Button onClick={() => handleButtonClick(section)}>find all</Button>
+    <h1 style={{ fontSize: '36px', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }} >{section}</h1>
+    <Button onClick={() => handleButtonClick(section)} style={{ marginLeft: 'auto' }}>find all</Button>
     </div>
     <div className="horizontal-scroll-menu" style={containerStyle}>
       <div className="menu-wrapper">
