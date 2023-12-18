@@ -18,13 +18,12 @@ export default function ViewBasic({ data }: { data: any }) {
 
     return (
         // 還沒設link到story-read
-        <div className='w-1/2'>
+        <div className='w-full'>
             <div className='relative w-144 h-96 mt-8'>
                 <Image
                     src={data.bookurl}
                     alt="Post"
                     fill
-                    style={{ cursor: 'pointer' }}
                     className='object-cover'
                 />
 

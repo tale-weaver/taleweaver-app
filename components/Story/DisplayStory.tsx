@@ -10,108 +10,81 @@ import { useQuery } from '@tanstack/react-query'
 import { Skeleton } from "@/components/ui/skeleton"
 import Image from "next/image";
 
-// const stories = [
-//     {
-//         bookurl: '/story_images/sea.jpg',
-//         bookname: 'sea',
-//         book_id: 1,
-//         numlikes: 5,
-//         numcomments: 4,
-//         state: 'finished',
-//         date: '2023-11-09'
-//     },
-//     {
-//         bookurl: '/story_images/sunrise.jpg',
-//         bookname: 'sunrise',
-//         book_id: 2,
-//         numlikes: 6,
-//         numcomments: 3,
-//         state: 'submitting',
-//         date: '2023-11-11'
-//     },
-//     {
-//         bookurl: '/story_images/starsky.jpg',
-//         bookname: 'starsky',
-//         book_id: 3,
-//         numlikes: 2,
-//         numcomments: 1,
-//         state: 'voting',
-//         date: '2023-11-01'
-//     },
-//     {
-//         bookurl: '/story_images/galaxy.jpg',
-//         bookname: 'galaxy',
-//         book_id: 4,
-//         numlikes: 4,
-//         numcomments: 1,
-//         state: 'submitting',
-//         date: '2023-11-27'
-//     },
-//     {
-//         bookurl: '/story_images/nebula.jpg',
-//         bookname: 'nebula',
-//         book_id: 5,
-//         numlikes: 0,
-//         numcomments: 1,
-//         state: 'finished',
-//         date: '2023-10-01'
-//     },
-//     {
-//         bookurl: '/story_images/history.jpg',
-//         bookname: 'history',
-//         book_id: 6,
-//         numlikes: 10,
-//         numcomments: 6,
-//         state: 'finished',
-//         date: '2023-10-10'
-//     },
-//     {
-//         bookurl: '/story_images/clock.jpg',
-//         bookname: 'clock',
-//         book_id: 7,
-//         numlikes: 3,
-//         numcomments: 0,
-//         state: 'submitting',
-//         date: '2023-11-06'
-//     },
-// ];
+const data = {
+    records:[
+    {
+        bookurl: '/story_images/sea.jpg',
+        bookname: 'sea',
+        book_id: 1,
+        numlikes: 5,
+        numcomments: 4,
+        state: 'voting',
+        date: '2023-11-09',
+    },
+    {
+        bookurl: '/story_images/galaxy.jpg',
+        bookname: 'galaxy',
+        book_id: 4,
+        numlikes: 4,
+        numcomments: 1,
+        state: 'submitting',
+        date: '2023-11-27',
+    },
+    {
+        bookurl: '/story_images/history.jpg',
+        bookname: 'history',
+        book_id: 6,
+        numlikes: 10,
+        numcomments: 6,
+        state: 'finished',
+        date: '2023-10-10',
+    },
+    {
+        bookurl: '/story_images/clock.jpg',
+        bookname: 'clock',
+        book_id: 7,
+        numlikes: 3,
+        numcomments: 0,
+        state: 'submitting',
+        date: '2023-11-06',
+    },
+]}
 
 export function StorySection(query: any) {
     //request to the backend
-    const queryStory = async () => {
-        const { data } = await axios.get("http://127.0.0.1:5000/story");
-        return data;
-    };
-    const { isPending, isError, data, error } = useQuery({
-        queryKey: ["story"],
-        queryFn: queryStory,
-    });
+    // const queryStory = async () => {
+    //     const { data } = await axios.get("http://127.0.0.1:5000/story");
+    //     return data;
+    // };
+    // const { isPending, isError, data, error } = useQuery({
+    //     queryKey: ["story"],
+    //     queryFn: queryStory,
+    // });
 
-    if (isPending) {
-        return (
-            <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-4">
-                {Array.from({ length: 12 }, (_, i) => i + 1).map((id) => (
-                    <div key={id} className="grid-flow-col w-72 h-84 gap-4">
-                        <Skeleton className="h-52 w-full p-2 m-2 p-4 bg-slate-100" />
-                        <Skeleton className="h-8 w-full p-4 m-2 bg-slate-100" />
-                        <Skeleton className='h-12 w-full p-4 m-2 bg-slate-100' />
-                    </div>
-                )
-                )}
-            </div>
+    // if (isPending) {
+    //     return (
+    //         <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-4">
+    //             {Array.from({ length: 12 }, (_, i) => i + 1).map((id) => (
+    //                 <div key={id} className="grid-flow-col w-72 h-84 gap-4">
+    //                     <Skeleton className="h-52 w-full p-2 m-2 p-4 bg-slate-100" />
+    //                     <Skeleton className="h-8 w-full p-4 m-2 bg-slate-100" />
+    //                     <Skeleton className='h-12 w-full p-4 m-2 bg-slate-100' />
+    //                 </div>
+    //             )
+    //             )}
+    //         </div>
 
-        )
-    }
+    //     )
+    // }
 
-    if (isError) {
-        return <p>Error: {error.message}</p>
-    }
+    // if (isError) {
+    //     return <p>Error: {error.message}</p>
+    // }
 
-    else {
+    // else {        
+        
 
-        const stories = data.records
-        console.log(stories);
-
+        const stories = data.records;
         const filteredStories = stories?.filter((story: any) => {
             return (
                 (!(query.query.state) || story.state === query.query.state)
@@ -145,6 +118,7 @@ export function StorySection(query: any) {
                             numcomments={story.numcomments}
                             state={story.state}
                             date={story.date}
+                            time_intervals={story.time_intervals}
                         />
                     ))}
 
@@ -152,7 +126,7 @@ export function StorySection(query: any) {
             </div>
 
         )
-    }
+    // }
 }
 
 export default function DisplayStory() {
