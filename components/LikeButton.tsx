@@ -30,19 +30,19 @@ const LikeButton: React.FC<LikeButtonProps> = ({ bookId, liked, like_nums }) => 
     }
   }, [like_nums, liked])
 
-  console.log("Receive the params:", endpointParam, liked, like_nums)
+  // console.log("Receive the params:", endpointParam, liked, like_nums)
 
   const handleLike = async () => {
     try {
       // update like state
       const response = await axios.post(`http://127.0.0.1:5000/story/${endpointParam}/like`);
 
-      console.log(endpointParam, liked, like_nums)
+      // console.log(endpointParam, liked, like_nums)
 
       if (response.status === 200) {
         const data = response.data;
 
-        console.log(data)
+        // console.log(data)
 
         setLikeCount(data.records.numlikes);
         setIsFilledHeart(prev => !prev);
