@@ -1,7 +1,7 @@
 import StoryPagePrimary from "@/components/storypage/story-page-primary";
 import StoryPageSecondary from "@/components/storypage/story-page-secondary";
 
-export default async function Profile() {
+export default async function ProfilePage() {
   return (
     <div>
       <StoryPagePrimary />

@@ -52,7 +52,7 @@ const Verify = () => {
   }
 
   return (
-    <div className="w-[400px]">
+    <div className="w-[300px]">
       <div className="flex flex-col space-y-2 text-left mb-6">
         <h1 className="text-2xl font-semibold tracking-tight">
           {email && username && !token && "Please verify your email"}
