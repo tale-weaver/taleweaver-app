@@ -1,17 +1,14 @@
 "use client";
 
 import Intro from "./Intro";
-import Bar from "./Bar";
+import Bar from "./Bar2";
 
 const Mainpage = () => {
   return (
-    <>
+    <div className="flex flex-col">
       <Intro />
-      <br></br>
-      <div >
-        <Bar />
-      </div>
-    </>
+    </div>
+
   );
 };
 export default Mainpage;
