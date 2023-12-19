@@ -17,9 +17,6 @@ export default function Demo() {
 
   return (
     <div>
-      <p>
-        This is a profile page. You can only see this page if you are signed in.
-      </p>
       <p>Here is your profile:</p>
       {data ? <pre>{JSON.stringify(data, null, 2)}</pre> : <p>loading...</p>}
     </div>
