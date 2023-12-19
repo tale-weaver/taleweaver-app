@@ -6,6 +6,7 @@ import React, { useContext } from "react";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ProfileCard from "./profile-card";
 
 const ProfileRight = () => {
   const { user } = useContext(AppContext);
@@ -15,7 +16,7 @@ const ProfileRight = () => {
       <div className="pt-[42px] pb-10">
         <h1 className="text-[42px] font-semibold">{user?.record.username}</h1>
       </div>
-      <Tabs defaultValue="submit" className="w-full border-b-[1px]">
+      <Tabs defaultValue="submit" className="w-full">
         <TabsList className="bg-white space-x-10 rounded-none">
           <TabsTrigger
             className="shadow-none pt-0 px-0 pb-4 rounded-none hover:shadow-none focus:shadow-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-slate-600"
@@ -57,12 +58,12 @@ const ProfileRight = () => {
           </ScrollArea>
         </TabsContent>
 
-        <TabsContent value="like" className="overflow-y-scroll">
+        <TabsContent value="like">
           <ScrollArea className="h-[560px]">
             {Array(100)
               .fill(0)
               .map((_, i) => (
-                <div key={i} className="h-40 bg-gray-800 my-2"></div>
+                <ProfileCard key={i} />
               ))}
           </ScrollArea>
         </TabsContent>
