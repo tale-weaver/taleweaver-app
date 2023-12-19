@@ -64,6 +64,7 @@ const SignInForm = () => {
         title: "Success",
         description: "You have successfully signed in",
       });
+      console.log("callbackUrl", callbackUrl);
       router.replace(callbackUrl);
     } else {
       setIsLoading(false);

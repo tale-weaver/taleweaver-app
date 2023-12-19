@@ -3,16 +3,17 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 import { Skeleton } from "@/components/ui/skeleton";
-import { PagePreview } from "@/types/page";
+import type { PageType } from "@/types/page";
 import { PageModal } from "./page-modal";
 
 interface PageProps extends React.HTMLAttributes<HTMLDivElement> {
-  page: PagePreview;
+  page: PageType;
   aspectRatio?: "portrait" | "square";
   width?: number;
   height?: number;
   page_id?: number;
   is_voting?: boolean;
+  allpages?: PageType[];
 }
 
 export function PageCard({
@@ -22,6 +23,7 @@ export function PageCard({
   height,
   page_id = 0,
   is_voting = false,
+  allpages = [],
   className,
   ...props
 }: PageProps) {
@@ -37,10 +39,10 @@ export function PageCard({
             )}
           />
         )}
-        <PageModal page_id={page_id} is_voting={is_voting}>
+        <PageModal page_id={page_id} is_voting={is_voting} allpages={allpages}>
           <Image
-            src={page.image}
-            alt={page.title}
+            src={page.pageurl}
+            alt={page.pagename}
             width={width}
             height={height}
             className={cn(
@@ -49,15 +51,25 @@ export function PageCard({
               isLoading ? "opacity-0" : "opacity-100"
             )}
             onLoad={() => setLoading(false)}
-            loading="lazy"
+            // loading="lazy"
+            priority
           />
         </PageModal>
       </div>
       <div className="space-y-1 text-sm w-full">
-        <h3 className="block font-medium leading-none text-ellipsis overflow-hidden whitespace-nowrap">
-          {page.title}
-        </h3>
-        <p className="text-xs text-muted-foreground">{page.creator}</p>
+        {isLoading ? (
+          <>
+            <Skeleton className="h-4 w-1/2" />
+            <Skeleton className="h-4 w-1/4" />
+          </>
+        ) : (
+          <>
+            <h3 className="block font-medium leading-none text-ellipsis overflow-hidden whitespace-nowrap">
+              {page.pagename}
+            </h3>
+            <p className="text-xs text-muted-foreground">{page.creator}</p>
+          </>
+        )}
       </div>
     </div>
   );

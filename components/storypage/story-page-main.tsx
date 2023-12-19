@@ -6,6 +6,7 @@ import StoryPageSecondary from "./story-page-secondary";
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import type { PageType } from "@/types/page";
 
 const getBook = async (bookId: string) => {
   const { data } = await axios.get(`http://127.0.0.1:5000/story/${bookId}`);
@@ -14,21 +15,38 @@ const getBook = async (bookId: string) => {
 
 const StoryPageMain = () => {
   const searchParams = useSearchParams();
-  const bookId = searchParams.get("book_id");
+  const book_id = searchParams.get("book_id");
 
   const {
     data: book,
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["book", bookId],
-    queryFn: () => getBook(bookId),
-    enabled: !!bookId,
+    queryKey: ["story", book_id],
+    queryFn: () => getBook(book_id),
+    enabled: !!book_id,
   });
 
   console.log(book);
 
-  return <div></div>;
+  return (
+    <>
+      <section className="mt-8">
+        <StoryPagePrimary
+          pages={book?.records.pages.winner as PageType[]}
+          book_status={book?.records.state}
+          isLoading={isLoading}
+        />
+      </section>
+      <section className="my-8">
+        <StoryPageSecondary
+          pages={book?.records.pages.ongoing as PageType[]}
+          book_status={book?.records.state}
+          isLoading={isLoading}
+        />
+      </section>
+    </>
+  );
 };
 
 export default StoryPageMain;
