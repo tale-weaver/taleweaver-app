@@ -1,68 +1,66 @@
-'use client';
+// 'use client';
 
 import React, { useState } from "react";
 import { Button, buttonVariants } from '@/components/ui/button';
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
+import axios from 'axios';
 
 interface ImageUploadConfirmProps {
   bookId: number;
-  storyName: string;
+  bookname: string;
   page: number;
+  imageFile: File;
   selectedImage: string | null;
   imageDescription: string;
-  show: boolean;
   onCancel: () => void;
   onConfirm: () => void;
 }
 
-// 假設這是一個用於上傳圖片的服務函數
-const uploadImageToDatabase = async (data: FormData) => {
-  try {
-    // 調用你的後端 API 或服務
-    const response = await fetch('/api/upload', {
-      method: 'POST',
-      body: data,
-    });
-
-    if (response.ok) {
-      console.log('Uploaded successfully!');
-    } else {
-      console.error('Upload failed.');
-    }
-  } catch (error) {
-    console.error('Error uploading:', error);
-  }
-};
-
 const ImageUploadConfirm: React.FC<ImageUploadConfirmProps> = ({
-  bookId,
-  storyName,
+  bookname,
   page,
   selectedImage,
+  imageFile,
   imageDescription,
-  show,
   onCancel,
   onConfirm,
 }) => {
 
   const router = useRouter()
 
+  const searchParams = useSearchParams();
+  const params = searchParams.get('book_id');
+
+  // console.log("Now book_id:", params);
+
   const uploadConfirm = async () => {
     // 創建一個 FormData 對象，用於包裝需要上傳的數據
     const formData = new FormData();
-    formData.append('selectedImage', selectedImage || '');
-    formData.append('imageDescription', imageDescription);
+
+    // if (selectedImage && selectedImage instanceof File) {
+    
+    if (selectedImage && imageFile instanceof File) {
+      formData.append('file', imageFile);
+      // formData.append('file', selectedImage);
+      formData.append('text_description', imageDescription);
+      // console.log(formData.values)
+
+    } else {
+      console.error('Invalid or missing file');
+      return;
+    }
+
+    console.log("Uploaded Image:", selectedImage);
+    console.log("Image file:", imageFile);
+    console.log("Image Description:", imageDescription);
 
     // upload to DB
     try {
-      // await uploadImageToDatabase(formData);
-
-      console.log("Uploaded Image:", selectedImage);
-      console.log("Image Description:", imageDescription);
+      await axios.post(`http://127.0.0.1:5000/story/upload/${params}`, formData);
       console.log("upload to DB.");
 
       // 回到那個故事的頁面
-      router.push('/story/1'); // + String(bookId));
+      router.push(`/story/book_id?book_id=${params}`);
     } catch (error) {
       console.error("Uploading error:", error)
     }
@@ -71,7 +69,7 @@ const ImageUploadConfirm: React.FC<ImageUploadConfirmProps> = ({
   return (
     <div>
       <div className="flex justify-center">
-        <h2 className={`mb-3 text-2xl font-semibold`}>準備上傳您的成品至：{storyName} 第 {page} 頁</h2>
+        <h2 className={`mb-3 text-2xl font-semibold`}>準備上傳您的成品至：{bookname} 第 {page} 頁</h2>
       </div>
 
       <div className="bg-slate-300 rounded-lg flex justify-center p-4">
