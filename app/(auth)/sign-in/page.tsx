@@ -1,12 +1,15 @@
 import SignInForm from "@/components/authform/sign-in-form";
 import SignInHeader from "@/components/authform/sign-in-header";
+import AnimationWapper from "@/components/wappers/AnimationWapper";
 
 const SignInPage = () => {
   return (
-    <div className="w-full">
-      <SignInHeader />
-      <SignInForm />
-    </div>
+    <AnimationWapper>
+      <div className="w-[300px]">
+        <SignInHeader />
+        <SignInForm />
+      </div>
+    </AnimationWapper>
   );
 };
 
