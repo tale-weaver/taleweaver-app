@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Button, buttonVariants } from '@/components/ui/button'
 import { Heart } from "lucide-react";
 import axios from "axios";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface LikeButtonProps {
   bookId: string; // 傳給後端的 book_id
@@ -46,6 +46,10 @@ const LikeButton: React.FC<LikeButtonProps> = ({ bookId, liked, like_nums }) => 
 
         setLikeCount(data.records.numlikes);
         setIsFilledHeart(prev => !prev);
+
+        const router = useRouter();
+        router.refresh();
+        
       } else {
         console.error('Failed to like the story.');
       }
