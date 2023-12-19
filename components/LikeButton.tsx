@@ -17,7 +17,9 @@ const LikeButton: React.FC<LikeButtonProps> = ({ bookId, liked, like_nums }) => 
 
   // 確認有沒有抓到參數 -- bookId 沒拿到？
   console.log("check if we receive the params:", bookId, liked, like_nums)
-  
+  useEffect(() => {
+    setLikeCount(like_nums);
+  },[like_nums])
   // const handleLike = () => {
   //   setLikeCount((prevCount) => prevCount + 1); // TODO: revise it
   //   setIsFilledHeart((prev) => !prev); // switch heart. TODO: replace with icon

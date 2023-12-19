@@ -10,71 +10,54 @@ import { useQuery } from '@tanstack/react-query'
 import { Skeleton } from "@/components/ui/skeleton"
 import Image from "next/image";
 
-// const stories = [
+// const data = {
+//     records:[
 //     {
 //         bookurl: '/story_images/sea.jpg',
 //         bookname: 'sea',
 //         book_id: 1,
 //         numlikes: 5,
 //         numcomments: 4,
-//         state: 'finished',
-//         date: '2023-11-09'
-//     },
-//     {
-//         bookurl: '/story_images/sunrise.jpg',
-//         bookname: 'sunrise',
-//         book_id: 2,
-//         numlikes: 6,
-//         numcomments: 3,
-//         state: 'submitting',
-//         date: '2023-11-11'
+//         state: 'voting',
+//         date: '2023-11-09',
 //     },
 //     {
 //         bookurl: '/story_images/starsky.jpg',
 //         bookname: 'starsky',
-//         book_id: 3,
-//         numlikes: 2,
-//         numcomments: 1,
+//         book_id: 2,
+//         numlikes: 3,
+//         numcomments: 4,
 //         state: 'voting',
-//         date: '2023-11-01'
+//         date: '2023-11-09',
 //     },
 //     {
 //         bookurl: '/story_images/galaxy.jpg',
 //         bookname: 'galaxy',
-//         book_id: 4,
+//         book_id: 3,
 //         numlikes: 4,
 //         numcomments: 1,
 //         state: 'submitting',
-//         date: '2023-11-27'
-//     },
-//     {
-//         bookurl: '/story_images/nebula.jpg',
-//         bookname: 'nebula',
-//         book_id: 5,
-//         numlikes: 0,
-//         numcomments: 1,
-//         state: 'finished',
-//         date: '2023-10-01'
+//         date: '2023-11-27',
 //     },
 //     {
 //         bookurl: '/story_images/history.jpg',
 //         bookname: 'history',
-//         book_id: 6,
+//         book_id: 4,
 //         numlikes: 10,
 //         numcomments: 6,
 //         state: 'finished',
-//         date: '2023-10-10'
+//         date: '2023-10-10',
 //     },
 //     {
 //         bookurl: '/story_images/clock.jpg',
 //         bookname: 'clock',
-//         book_id: 7,
+//         book_id: 5,
 //         numlikes: 3,
 //         numcomments: 0,
 //         state: 'submitting',
-//         date: '2023-11-06'
+//         date: '2023-11-06',
 //     },
-// ];
+// ]}
 
 export function StorySection(query: any) {
     //request to the backend
@@ -89,9 +72,9 @@ export function StorySection(query: any) {
 
     if (isPending) {
         return (
-            <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-4">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
                 {Array.from({ length: 12 }, (_, i) => i + 1).map((id) => (
-                    <div key={id} className="grid-flow-col w-72 h-84 gap-4">
+                    <div key={id} className="grid-flow-col w-108 h-84 gap-4">
                         <Skeleton className="h-52 w-full p-2 m-2 p-4 bg-slate-100" />
                         <Skeleton className="h-8 w-full p-4 m-2 bg-slate-100" />
                         <Skeleton className='h-12 w-full p-4 m-2 bg-slate-100' />
@@ -99,7 +82,6 @@ export function StorySection(query: any) {
                 )
                 )}
             </div>
-
         )
     }
 
@@ -107,11 +89,10 @@ export function StorySection(query: any) {
         return <p>Error: {error.message}</p>
     }
 
-    else {
-
-        const stories = data.records
+    else {        
+        
+        const stories = data.records;
         console.log(stories);
-
         const filteredStories = stories?.filter((story: any) => {
             return (
                 (!(query.query.state) || story.state === query.query.state)
@@ -133,7 +114,7 @@ export function StorySection(query: any) {
 
         return (
             <div>
-                <div className="grid grid-cols-4 gap-4">
+                <div className="grid grid-cols-3">
 
                     {sortedStories?.map((story: any, index: number) => (
                         <StoryCover
@@ -145,6 +126,7 @@ export function StorySection(query: any) {
                             numcomments={story.numcomments}
                             state={story.state}
                             date={story.date}
+                            time_intervals={story.time_intervals}
                         />
                     ))}
 
@@ -185,9 +167,9 @@ export default function DisplayStory() {
 
     return (
         <div>
-            <div className="flex flex-row content-center ml-4">
+            <div className="grid grid-flow-col justify-items-start content-center">
                 {/* <div className="grid grid-cols-3 gird-flow-row content-center"> */}
-                <div className='flex justify-start basis-1/3 m-4 mr-8'>
+                <div className='flex justify-start basis-1/3 mt-4 mb-4 mr-8'>
                     <Button variant='secondary' className='m-2' onClick={() => handleChange(null, null, term)}>All</Button>
                     <Button variant='secondary' className='m-2' onClick={() => handleChange('finished', null, term)}><BookText />Finished</Button>
                     <Button variant='secondary' className='m-2' onClick={() => handleChange('submitting', null, term)}><ArrowUpSquare />Submitting</Button>
@@ -202,7 +184,7 @@ export default function DisplayStory() {
 
                 </div>
 
-                <div className="flex self-center justify-self-end m-4">
+                <div className="flex self-center justify-self-end">
                     <div className="self-center mr-2"><Search /></div>
                     <form>
                         <input
