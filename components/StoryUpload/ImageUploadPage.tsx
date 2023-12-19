@@ -1,33 +1,69 @@
 'use client';
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Button, buttonVariants } from '@/components/ui/button';
-// import Image from "next/image";
-// import ImageUploadConfirm from './ImageUploadConfirm';
+import axios from "axios";
+import { useSearchParams } from "next/navigation";
 
 interface ImageUploadPageProps {
   onUpload: (data: UploadData) => void; // onUpload 函數 接受 UploadData 參數
 }
 
 interface UploadData {
-  bookId: number;
+  bookId: string;
   storyName: string;
   page: number;
+  imageFile: File;
   selectedImage: string | null;
   imageDescription: string;
 }
 
 const ImageUploadPage: React.FC<ImageUploadPageProps> = ({ onUpload }) => {
-  const [bookId, setBookId] = useState(1); // fake value
-  const [storyName, setStoryName] = useState("Harry Potter"); // fake value
-  const [page, setPage] = useState(1); // fake value
+  const searchParams = useSearchParams();
+  const params = searchParams.get('book_id');
+
+  // console.log("Now book_id:", params);
+
+  const [bookId, setBookId] = useState(params); 
+  const [storyName, setStoryName] = useState("Book");
+  const [page, setPage] = useState(1);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null); // 指定 ref 的類型為 HTMLInputElement 或 null
+  
+  const [imageFile, setImageFile] = useState<File | null>(null);
+
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [imageDescription, setImageDescription] = useState<string>("");
 
   const [uploadError, setUploadError] = useState<string | null>(null);
-  const [showConfirm, setShowConfirm] = useState(false);
+
+  // console.log("Now bookname and page:", storyName, page);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:5000/story/upload/${bookId}`);
+
+        if (response.status === 200) {
+          const data = response.data.records;
+          // console.log(data);
+          // console.log(data.bookname);
+          // console.log(data.page_num);
+
+          setStoryName(data.bookname);
+          setPage(data.page_num);
+
+          console.log("Now bookname and page:", storyName, page);
+        } else {
+          console.error('Failed to fetch story information.');
+        }
+      } catch (error) {
+        console.error('Error fetching story information:', error);
+      }
+    };
+
+    fetchData();
+  }, [bookId]);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -43,6 +79,7 @@ const ImageUploadPage: React.FC<ImageUploadPageProps> = ({ onUpload }) => {
 
       reader.onloadend = () => {
         setSelectedImage(reader.result as string);
+        setImageFile(file);
         setUploadError(null);
       };
 
@@ -59,32 +96,33 @@ const ImageUploadPage: React.FC<ImageUploadPageProps> = ({ onUpload }) => {
 
   const handleUpload = () => {
     if (uploadError) {
-      // 如果存在上传错误，不执行上传逻辑
       return;
     }
 
-    if (!selectedImage){
+    if (!selectedImage) {
       alert("請選擇要上傳的圖片檔案")
       return;
     }
 
-    if (!imageDescription){
+    if (!imageDescription) {
       alert("請輸入文字敘述")
       return;
     }
 
-    console.log("Uploaded Image:", selectedImage);
-    console.log("Image Description:", imageDescription);
+    // console.log("Uploaded Image:", selectedImage);
+    // console.log("Type of selectedImage:", typeof(selectedImage));
+    // console.log("Type of imageFile:", typeof(imageFile));
 
     onUpload({
       bookId,
       storyName,
       page,
+      imageFile,
       selectedImage,
       imageDescription,
     });
 
-    setShowConfirm(true);
+    // setShowConfirm(true);
   };
 
   return (
@@ -104,10 +142,10 @@ const ImageUploadPage: React.FC<ImageUploadPageProps> = ({ onUpload }) => {
             ref={fileInputRef}
           />
           {selectedImage && (
-          <div>
-            <img src={selectedImage} alt="Uploaded" style={{ maxWidth: "100%"}} />
-          </div>
-        )}
+            <div>
+              <img src={selectedImage} alt="Uploaded" style={{ maxWidth: "100%" }} />
+            </div>
+          )}
           {uploadError && <div style={{ color: 'red' }}>{uploadError}</div>}
         </div>
 
@@ -117,7 +155,7 @@ const ImageUploadPage: React.FC<ImageUploadPageProps> = ({ onUpload }) => {
             value={imageDescription}
             onChange={(e) => setImageDescription(e.target.value)}
             placeholder="輸入文字敘述（300 字內）"
-            style={{ width: "95%", minHeight: "300px"}}
+            style={{ width: "95%", minHeight: "300px" }}
           />
         </div>
 
@@ -131,18 +169,6 @@ const ImageUploadPage: React.FC<ImageUploadPageProps> = ({ onUpload }) => {
         )}
         <Button className="m-2" variant="default" onClick={handleUpload} disabled={uploadError !== null}>上傳</Button>
       </div>
-
-      {/* {selectedImage && (
-        <ImageUploadConfirm
-          storyName={storyName}
-          page={page}
-          selectedImage={selectedImage}
-          imageDescription={imageDescription}
-          show={showConfirm}
-          onCancel={() => setShowConfirm(false)}
-          onConfirm={handleConfirmUpload}
-        />
-      )} */}
     </div>
 
   );

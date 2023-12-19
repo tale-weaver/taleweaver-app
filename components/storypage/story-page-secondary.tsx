@@ -7,10 +7,14 @@ import { StoryPageInfo } from "@/data/story-page-info";
 import { useState } from "react";
 import type { PageType } from "@/types/page";
 import { Skeleton } from "@/components/ui/skeleton";
+import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 
 interface StoryPageProps {
   pages?: PageType[];
   book_status?: string;
+  refetch?: (
+    options?: RefetchOptions
+  ) => Promise<QueryObserverResult<any, Error>>;
   isLoading: boolean;
 }
 
@@ -18,6 +22,7 @@ const StoryPageSecondary = ({
   book_status = "",
   pages = [],
   isLoading,
+  refetch,
 }: StoryPageProps) => {
   const [isProtrait, setIsPortrait] = useState(true);
   const gridColsLiteral = isProtrait
@@ -78,6 +83,7 @@ const StoryPageSecondary = ({
                   page_id={index}
                   is_voting={book_status === "voting"}
                   allpages={pages}
+                  refetch={refetch}
                 />
               ))}
             </div>
