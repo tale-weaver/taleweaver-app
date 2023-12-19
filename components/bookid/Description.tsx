@@ -9,7 +9,11 @@ import Countdown from "./CountDown";
 import { useSearchParams } from "next/navigation";
 import { Skeleton } from "../ui/skeleton";
 
-export default function Discription() {
+export default function Discription({
+  setRefetchToggle,
+}: {
+  setRefetchToggle: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const searchParams = useSearchParams();
   const book_id = searchParams.get("book_id");
 

@@ -33,8 +33,6 @@ const StoryPageMain = () => {
     }
   }, [book_id]);
 
-  console.log(book);
-
   return (
     <>
       <section className="mt-8">

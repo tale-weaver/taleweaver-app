@@ -7,11 +7,12 @@ import StoryPageMain from "../storypage/story-page-main";
 
 export default function DisplayInfo() {
   const Description = dynamic(() => import("./Description"), { ssr: false });
+  const [refetchToggle, setRefetchToggle] = React.useState(false);
 
   return (
     <div className="flex flex-col">
       <ViewBasic />
-      <Description />
+      <Description setRefetchToggle={setRefetchToggle} />
       <StoryPageMain />
       <div className="w-full m-4">
         <CommentSection />
