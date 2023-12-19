@@ -1,9 +1,9 @@
-import StoryPageMain from "@/components/storypage/story-page-main";
+import ProfileMain from "@/components/profile/profile-main";
 
 export default async function ProfilePage() {
   return (
     <div>
-      <StoryPageMain />
+      <ProfileMain />
     </div>
   );
 }

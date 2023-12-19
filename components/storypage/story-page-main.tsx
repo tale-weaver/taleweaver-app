@@ -13,7 +13,7 @@ const getBook = async (bookId: string) => {
   return data;
 };
 
-const StoryPageMain = () => {
+const StoryPageMain = ({ refetchToggle }: { refetchToggle: boolean }) => {
   const searchParams = useSearchParams();
   const book_id = searchParams.get("book_id");
 
@@ -33,7 +33,9 @@ const StoryPageMain = () => {
     }
   }, [book_id]);
 
-  console.log(book);
+  useEffect(() => {
+    refetch();
+  }, [refetchToggle]);
 
   return (
     <>

@@ -3,7 +3,13 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-const CountDown = ({ date }: { date: any }) => {
+const CountDown = ({
+  date,
+  setRefetchToggle,
+}: {
+  date: any;
+  setRefetchToggle: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const router = useRouter();
   const targetTime = new Date(date.time_stamp).getTime();
   const [remainingTime, setRemainingTime] = useState(
@@ -27,6 +33,7 @@ const CountDown = ({ date }: { date: any }) => {
     if (timeDifference <= 0) {
       // 倒數計時結束
       router.refresh();
+      setRefetchToggle((prev) => !prev);
       return { days: 0, hours: 0, minutes: 0, seconds: 0 };
     }
 
