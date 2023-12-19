@@ -56,25 +56,29 @@ export default function Discription() {
     if (status === "submitting") {
       return (
         <div className="w-full mt-4 mb-8">
-          <div className="flex flex-row justify-between items-start text-lg font-serif">
+          <div className="grid grid-cols-6 items-start text-lg font-serif">
             <div className="flex flex-col">
-              <div className="mb-2">現正投稿中: 第{page_number}頁</div>
+              <div className="">現正投稿中: 第{page_number}頁</div>
+              <div className="mb-2">Now Submitting: page {page_number}</div>
               <Countdown date={intervalEnd} />
             </div>
-            <Link
-              href={{
-                pathname: "/storyupload/book_id",
-                query: { book_id: book_id },
-              }}
-            >
-              <Button
-                variant="secondary"
-                className="flex flex-row justify-center items-center font-sans"
-              >
-                <Upload className="mr-4 h-4 w-4 text-black" />
-                <p>Page Summit</p>
-              </Button>
-            </Link>
+            <div className="self-start pt-2">
+                <Link
+                href={{
+                    pathname: "/storyupload/book_id",
+                    query: { book_id: book_id },
+                }}
+                >
+                <Button
+                    variant="secondary"
+                    className="flex flex-row items-center font-sans"
+                >
+                    <Upload className="mr-4 h-4 w-4 text-black" />
+                    <p>Page Summit</p>
+                </Button>
+                </Link>
+            </div>
+
           </div>
         </div>
       );
@@ -82,7 +86,8 @@ export default function Discription() {
       return (
         <div className="w-full mt-4 mb-8">
           <div className="flex flex-col justify-start items-start text-lg font-serif">
-            <div className="mb-2">現正投票中: 第{page_number}頁</div>
+            <div className="">現正投票中: 第{page_number}頁</div>
+            <div className="mb-2">Now Voting: page {page_number}</div>
             <Countdown date={intervalEnd} />
           </div>
         </div>
