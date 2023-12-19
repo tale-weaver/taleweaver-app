@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, buttonVariants } from '@/components/ui/button'
 import { MessageCircle } from "lucide-react";
 
@@ -10,6 +10,10 @@ interface CommentButtonProps {
 
 const CommentButton: React.FC<CommentButtonProps> = ({ comment_nums }) => {
   const [commentCount, setCommentCount] = useState(comment_nums); // TODO: not 0, count should retrieve from DB
+
+  useEffect(() => {
+    setCommentCount(comment_nums);
+  },[comment_nums])
 
   const movetoCommentSection = () => {
     const commentsElement = document.getElementById("comments_area");
