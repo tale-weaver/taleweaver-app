@@ -10,12 +10,14 @@ interface PageVeiwer extends React.HTMLAttributes<HTMLDivElement> {
   page_id?: number;
   width?: number;
   allpages?: PageType[];
+  setCurrentPage?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function PageVeiwer({
   page_id = 0,
   width = 700,
   allpages = [],
+  setCurrentPage,
   className,
 }: PageVeiwer) {
   const index = useRef(page_id);
@@ -48,6 +50,7 @@ export default function PageVeiwer({
           0,
           allpages.length - 1
         );
+        setCurrentPage(index.current);
         cancel();
       }
       api.start((i) => {
