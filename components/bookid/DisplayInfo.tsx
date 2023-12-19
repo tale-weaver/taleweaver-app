@@ -1,6 +1,7 @@
+'use client'
 import React from "react";
 import ViewBasic from "./ViewBasic";
-import Discription from "./Discription";
+import Discription from "./Description";
 import CommentSection from "../CommentSection";
 import dynamic from "next/dynamic";
 
@@ -20,22 +21,22 @@ const story = {
             "status": "submitting"
         },
         {
-            "time_stamp": "2023/12/18 18:00:00",
+            "time_stamp": "2023/12/18 23:21:00",
             "round": 1,
             "status": "voting"
         },
         {
-            "time_stamp": "2023/12/18 18:30:00",
+            "time_stamp": "2023/12/18 23:24:30",
             "round": 2,
             "status": "submitting"
         },
         {
-            "time_stamp": "2023/12/18 19:00:00",
+            "time_stamp": "2023/12/18 23:26:00",
             "round": 2,
             "status": "voting"
         },
         {
-            "time_stamp": "2023/12/18 19:30:00",
+            "time_stamp": "2023/12/18 23:26:30",
             "round": 2,
             "status": "finished"
         }
@@ -45,12 +46,12 @@ const story = {
 
 export default function DisplayInfo() {
 
-    const Discription = dynamic(() => import('./Discription'), { ssr: false })
+    const Description = dynamic(() => import('./Description'), { ssr: false })
 
     return (
         <div className="grid grid-cols-1 gap-4 justify-items-center" >
-                <ViewBasic records={story} />
-                <Discription records={story} />
+                <ViewBasic />
+                <Description />
             <div className='w-full m-4'>
                 <CommentSection />
             </div>

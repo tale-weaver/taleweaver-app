@@ -12,6 +12,8 @@ export default function StoryCover(story: any) {
         else if (state === 'voting') return <Vote />
         else return 0;
     }
+    //Sunny special handle
+    const src = story.bookurl.replace('./bin', 'http://127.0.0.1:5000/bin')
 
     return (
         <div className='static border m-2 p-4 h-84 hover:bg-gray-400 hover:text-neutral-50'>
@@ -21,7 +23,7 @@ export default function StoryCover(story: any) {
                     query: { book_id: story.book_id },
                 }}>
                     <Image
-                        src={story.bookurl}
+                        src={src}
                         alt="Post"
                         fill
                         sizes="100vw"
