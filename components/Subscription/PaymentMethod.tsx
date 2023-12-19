@@ -26,6 +26,10 @@ import {
 } from "@/components/ui/form";
 
 import { useTWMutation } from "@/hooks/useTWMutation";
+import { AppContext } from "@/context/AppContext";
+import { useContext, useEffect } from "react";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 const FormSchema = z.object({
   name: z.string().min(1, "name is required"),
@@ -36,7 +40,13 @@ const FormSchema = z.object({
   cvc: z.string().length(3, "CVC must be 3 digits"),
 });
 
+const getUserInfo = async () => {
+  const { data } = await axios.get("http://127.0.0.1:5000/user");
+  return data;
+};
+
 export function PaymentMethod() {
+  const { user, setUser } = useContext(AppContext);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -52,6 +62,22 @@ export function PaymentMethod() {
     console.log(values);
     mutation.mutate({});
   };
+
+  const {
+    status,
+    fetchStatus,
+    data: getUser,
+  } = useQuery({
+    queryKey: ["user", user.username],
+    queryFn: getUserInfo,
+    enabled: !!mutation.isSuccess,
+  });
+
+  useEffect(() => {
+    if (status === "success") {
+      setUser(getUser);
+    }
+  }, [status]);
 
   return (
     <AnimationWrapper>

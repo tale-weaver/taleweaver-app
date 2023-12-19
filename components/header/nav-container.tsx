@@ -8,6 +8,8 @@ import { useSession } from "next-auth/react";
 import UserAuth from "./user-auth";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState, useContext } from "react";
+import { AppContext } from "@/context/AppContext";
 
 const getUserInfo = async () => {
   const { data } = await axios.get("http://127.0.0.1:5000/user");
@@ -16,15 +18,14 @@ const getUserInfo = async () => {
 
 export function NavContainer() {
   const { data: session } = useSession();
-
-  let enabled = false;
+  const [enabled, setEnabled] = useState(false);
+  const { user, setUser } = useContext(AppContext);
 
   if (session?.user) {
     console.log("token", (session?.user as any)?.accessToken);
     axios.defaults.headers.common["Authorization"] = `Bearer ${
       (session?.user as any)?.accessToken
     }`;
-    enabled = true;
   }
 
   const {
@@ -36,6 +37,16 @@ export function NavContainer() {
     queryFn: getUserInfo,
     enabled: !!enabled,
   });
+
+  useEffect(() => {
+    setEnabled(true);
+  }, [(session?.user as any)?.accessToken]);
+
+  useEffect(() => {
+    if (status === "success") {
+      setUser(getUser);
+    }
+  }, [status]);
 
   return (
     <div className="container hidden md:flex md:justify-between md:items-center h-16">
@@ -51,9 +62,9 @@ export function NavContainer() {
       <div id="nav-right">
         {getUser?.record.username ? (
           <UserAuth
-            imgUrl={getUser?.record.avatar as string}
-            username={getUser?.record.username}
-            is_premium={getUser?.record.role === "premium"}
+            imgUrl={user?.record.avatar as string}
+            username={user?.record.username}
+            is_premium={user?.record.role === "premium"}
           />
         ) : (
           <Link className={buttonVariants()} href="/sign-in">
