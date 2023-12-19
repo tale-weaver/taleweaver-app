@@ -64,25 +64,27 @@ export default function Discription({
             <div className="flex flex-col">
               <div className="">現正投稿中: 第{page_number}頁</div>
               <div className="mb-2">Now Submitting: page {page_number}</div>
-              <Countdown date={intervalEnd} />
+              <Countdown
+                date={intervalEnd}
+                setRefetchToggle={setRefetchToggle}
+              />
             </div>
             <div className="self-start pt-2">
-                <Link
+              <Link
                 href={{
-                    pathname: "/storyupload/book_id",
-                    query: { book_id: book_id },
+                  pathname: "/storyupload/book_id",
+                  query: { book_id: book_id },
                 }}
-                >
+              >
                 <Button
-                    variant="secondary"
-                    className="flex flex-row items-center font-sans"
+                  variant="secondary"
+                  className="flex flex-row items-center font-sans"
                 >
-                    <Upload className="mr-4 h-4 w-4 text-black" />
-                    <p>Page Submit</p>
+                  <Upload className="mr-4 h-4 w-4 text-black" />
+                  <p>Page Submit</p>
                 </Button>
-                </Link>
+              </Link>
             </div>
-
           </div>
         </div>
       );

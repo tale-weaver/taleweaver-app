@@ -13,7 +13,7 @@ export default function DisplayInfo() {
     <div className="flex flex-col">
       <ViewBasic />
       <Description setRefetchToggle={setRefetchToggle} />
-      <StoryPageMain />
+      <StoryPageMain refetchToggle={refetchToggle} />
       <div className="w-full m-4">
         <CommentSection />
       </div>
