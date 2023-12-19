@@ -18,15 +18,37 @@ const MainNav = () => {
         Home
       </Link>
       <Link
-        href="/about"
+        href="/about-us"
         className={cn(
           "transition-colors hover:text-foreground/80",
-          pathname?.startsWith("/about")
+          pathname?.startsWith("/about-us")
             ? "text-foreground"
             : "text-foreground/60"
         )}
       >
         About
+      </Link>
+      <Link
+        href="/story"
+        className={cn(
+          "transition-colors hover:text-foreground/80",
+          pathname?.startsWith("/story")
+            ? "text-foreground"
+            : "text-foreground/60"
+        )}
+      >
+        Story
+      </Link>
+      <Link
+        href="/subscription"
+        className={cn(
+          "transition-colors hover:text-foreground/80",
+          pathname?.startsWith("/subscription")
+            ? "text-foreground"
+            : "text-foreground/60"
+        )}
+      >
+        Subscription
       </Link>
       <Link
         href="/profile"

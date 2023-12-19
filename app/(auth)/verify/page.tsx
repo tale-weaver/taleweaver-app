@@ -1,7 +1,12 @@
 import Verify from "@/components/auth/verify";
+import AnimationWapper from "@/components/wappers/AnimationWapper";
 
 const VerifyPage = () => {
-  return <Verify />;
+  return (
+    <AnimationWapper>
+      <Verify />
+    </AnimationWapper>
+  );
 };
 
 export default VerifyPage;
