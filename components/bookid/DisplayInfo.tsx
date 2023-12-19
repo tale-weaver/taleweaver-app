@@ -1,10 +1,9 @@
-'use client';
-
+'use client'
 import React from "react";
-import { useSearchParams } from "next/navigation";
 import ViewBasic from "./ViewBasic";
-import Discription from "./Discription";
+import Discription from "./Description";
 import CommentSection from "../CommentSection";
+import dynamic from "next/dynamic";
 
 //這是個假資料
 const story = {
@@ -13,46 +12,47 @@ const story = {
     book_id: 6,
     numlikes: 10,
     numcomments: 6,
-    state: 'submitting',
+    // state: 'submitting',
     date: '2023-10-10',
-    pages: [    
-    {
-        pageurl: '/pages/p1.JPG',
-        creator: 'Amy'
-    },
-    {
-        pageurl: '/pages/p2.JPG',
-        creator: 'Peter'
-    },
-    {
-        pageurl: '/pages/p3.JPG',
-        creator: 'Jane'
-    },
-    {
-        pageurl: '/pages/p4.JPG',
-        creator: 'Alex'
-    },
-    {
-        pageurl: '/pages/p5.JPG',
-        creator: 'Ryvn'
-    }] //已成功接龍的頁數
+    time_intervals: [
+        {
+            "time_stamp": "2023/12/18 14:02:00",
+            "round": 1,
+            "status": "submitting"
+        },
+        {
+            "time_stamp": "2023/12/18 23:21:00",
+            "round": 1,
+            "status": "voting"
+        },
+        {
+            "time_stamp": "2023/12/18 23:24:30",
+            "round": 2,
+            "status": "submitting"
+        },
+        {
+            "time_stamp": "2023/12/18 23:26:00",
+            "round": 2,
+            "status": "voting"
+        },
+        {
+            "time_stamp": "2023/12/18 23:26:30",
+            "round": 2,
+            "status": "finished"
+        }
+    ]
 }
 
-const disc = {
-    state: story.state,
-    pages: story.pages,
-    book_id : story.book_id
-}
 
 export default function DisplayInfo() {
-    const searchParams = useSearchParams();
-    const params = searchParams.get('book_id');
+
+    const Description = dynamic(() => import('./Description'), { ssr: false })
 
     return (
-        <div className="grid grid-cols-1 gap-8 justify-items-center">
-                <ViewBasic data={story} />
-                <Discription data={disc} />
-            <div className='w-1/2 m-4'>
+        <div className="grid grid-cols-1 gap-4 justify-items-center" >
+                <ViewBasic />
+                <Description />
+            <div className='w-full m-4'>
                 <CommentSection />
             </div>
 

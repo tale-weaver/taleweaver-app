@@ -18,7 +18,7 @@ const CommentSection: React.FC = () => {
   };
 
   return (
-    <div id="comments" className="content-center w-4/5">
+    <div id="comments" className="content-center">
       <h2 className={`mb-3 text-2xl font-semibold`}>留言區</h2>
       
       <div className="flex items-center justify-center">
