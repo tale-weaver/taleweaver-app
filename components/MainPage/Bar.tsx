@@ -4,27 +4,27 @@ import { useRef } from 'react'
 import { Button } from "../ui/button"
 
 
-const Bar = ({section}:{section:String}) => {
+const Bar = () => {
   return (
     <div>
     <div className="bar-container">
     
-    <h1 style={{ fontSize: '36px', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }} >{section}</h1>
-    <Button onClick={() => handleButtonClick(section)} style={{ marginLeft: 'auto' }}>find all</Button>
+    <h1 style={{ fontSize: '36px'}} >故事一覽</h1>
     </div>
     <div className="horizontal-scroll-menu" style={containerStyle}>
       <div className="menu-wrapper">
         <ul className="menu-items">
-          <li onClick={() => window.location.href="./about-us"}> <Image src="/image/p1.jpg" alt="p1" width={300} height={300}/>
-          <a>故事名</a></li>
-          <li><Image src="/image/p2.jpg" alt="p2" width={300} height={300} />
-          <a>故事名</a></li>
-          <li><Image src="/image/p3.jpg" alt="p3"  width={300} height={300} />
-          <a>故事名</a></li>
-          <li><Image src="/image/p4.jpg" alt="p4"  width={300} height={300} /></li>
-          <li><Image src="/image/p5.jpg" alt="p5"  width={300} height={300} /></li>
-          <li><Image src="/image/p6.jpg" alt="p6"  width={300} height={300} /></li>
-          <li><Image src="/image/p7.jpg" alt="p7"  width={300} height={300} /></li>
+          {/*上標的部分，把 section 換成抓出來的狀態，最後面的GenerateOutput也要一起換 */}
+          <li onClick={() => window.location.href="./about-us"}><GenerateOutput section="已完成故事"/><Image src="/image/p3.jpg" alt="A"  width={600} height={400} style={{ width: 'auto', height: 'auto' }} />
+          <a className="title">A</a></li>
+          <li onClick={() => window.location.href="./about-us"}><GenerateOutput section="接龍中故事"/><Image src="/image/p3.jpg" alt="B"  width={600} height={400} style={{ width: 'auto', height: 'auto' }} />
+          <a className="title">B</a></li>
+          <li onClick={() => window.location.href="./about-us"}><GenerateOutput section="投票中故事"/><Image src="/image/p3.jpg" alt="C"  width={600} height={400} style={{ width: 'auto', height: 'auto' }} />
+          <a className="title">C</a></li>
+          <li onClick={() => window.location.href="./about-us"}><GenerateOutput section="已完成故事"/><Image src="/image/p3.jpg" alt="D"  width={600} height={400} style={{ width: 'auto', height: 'auto' }} />
+          <a className="title">D</a></li>
+          <li onClick={() => window.location.href="./about-us"}><GenerateOutput section="接龍中故事"/><Image src="/image/p3.jpg" alt="E"  width={600} height={400} style={{ width: 'auto', height: 'auto' }} />
+          <a className="title">E</a></li>
         </ul>
       </div>
       </div>
@@ -54,20 +54,29 @@ const Bar = ({section}:{section:String}) => {
         }
 
         .menu-items li {
+          position: relative;
           margin-right: 20px;
           flex-shrink: 0; 
           cursor: 'pointer';
         }
 
-        .menu-items a {
+
+
+    
+
+        .title {
+          position: absolute;
+          bottom: 0;
+          left: 0;
           text-decoration: none;
           color: black;
-          font-weight: bold;
           padding: 10px;
-          border-radius: 5px;
           background-color: #ddd;
-          cursor: 'pointer';
+          cursor: pointer;
+          font-size: 12px;
+          font-family: fantasy;
         }
+      
 
         .menu-items a:hover {
           background-color: #ccc;
@@ -86,13 +95,41 @@ const containerStyle: React.CSSProperties = {
   alignItems: 'center',
 }
 
-const handleButtonClick = (section) => {
-  if (section === '已完成故事') {
-    window.location.href = "./story?state=finished"; // 修改成實際的 A 網頁路徑
-  } else {
-    if (section === '徵稿中故事'){
-      window.location.href = "./story?state=submitting";
-    }else{
-    window.location.href = "./story?state=voting"; // 修改成實際的 B 網頁路徑
-  }}
-}
+const handleButtonClick = () => {
+    window.location.href = "./story?state=finished"; }
+
+const GenerateOutput = ({ section }) => {
+      let content;
+      let backgroundColor;
+    
+      if (section === "已完成故事") {
+        content = <a className="status" style={{ backgroundColor: 'rgba(0, 255, 0, 0.5)' }}>完結</a>;
+      } else if (section === "接龍中故事") {
+        content = <a className="status" style={{ backgroundColor: 'rgba(255, 0, 0, 0.5)' }}>接龍</a>;
+      } else {
+        content = <a className="status" style={{ backgroundColor: 'rgba(0, 0, 255, 0.5)' }}>投票</a>;
+      }
+    
+      return (
+        <div className="output-container">
+          {content}
+          <style>
+            {`
+              .status {
+                position: absolute;
+                top: 0;
+                right: 0;
+                text-decoration: none;
+                color: black;
+                padding: 10px;
+                font-weight: bold;
+                cursor: pointer;
+                font-size: 12px;
+                font-family: monospace;
+              }
+            `}
+          </style>
+        </div>
+      );
+    };
+    
