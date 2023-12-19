@@ -74,7 +74,7 @@ export default function Discription() {
                     className="flex flex-row items-center font-sans"
                 >
                     <Upload className="mr-4 h-4 w-4 text-black" />
-                    <p>Page Summit</p>
+                    <p>Page Submit</p>
                 </Button>
                 </Link>
             </div>

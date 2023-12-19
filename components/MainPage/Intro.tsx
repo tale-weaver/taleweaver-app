@@ -6,10 +6,12 @@ import { BookOpenText, FileImage, Brush,PenSquare, Upload, CheckCircle} from "lu
 import { CalendarClock, RefreshCcw, ScrollText, ArrowRight} from "lucide-react";
 import Link from "next/link";
 import Bar from "./Bar2";
+import { useSession } from "next-auth/react";
 
 
 
 const Intro = ({ }) => {
+  const { data: session, status } = useSession()
   return (
     <div>
       <div className="w-full flex flex-row">
@@ -100,12 +102,13 @@ const Intro = ({ }) => {
       </div>
       
       <div className="mt-8">
-        <Bar />
+        {(status === 'authenticated') && <Bar />}
       </div>
       <div className="w-full grid justify-center mt-8">
         <Link href={'/story'}>
-          <Button className="h-12 rounded-md px-8 text-xl">開始瀏覽/創作<ArrowRight /></Button>
+          <Button className="h-12 rounded-md px-8 text-xl hover:animate-bounce">開始瀏覽/創作<ArrowRight /></Button>
         </Link>
+        
       </div>
 
     </div>
