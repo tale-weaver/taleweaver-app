@@ -55,19 +55,13 @@ export function PaymentMethod() {
       cvc: "",
     },
   });
-
   const mutation = useTWMutation("user/subscribe");
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-    console.log(values);
     mutation.mutate({});
   };
 
-  const {
-    status,
-    fetchStatus,
-    data: getUser,
-  } = useQuery({
+  const { status, data: gotUser } = useQuery({
     queryKey: ["user", user.username],
     queryFn: getUserInfo,
     enabled: !!mutation.isSuccess,
@@ -75,7 +69,7 @@ export function PaymentMethod() {
 
   useEffect(() => {
     if (status === "success") {
-      setUser(getUser);
+      setUser(gotUser);
     }
   }, [status]);
 

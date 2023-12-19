@@ -1,11 +1,9 @@
-import StoryPagePrimary from "@/components/storypage/story-page-primary";
-import StoryPageSecondary from "@/components/storypage/story-page-secondary";
+import StoryPageMain from "@/components/storypage/story-page-main";
 
 export default async function ProfilePage() {
   return (
     <div>
-      <StoryPagePrimary />
-      <StoryPageSecondary />
+      <StoryPageMain />
     </div>
   );
 }
