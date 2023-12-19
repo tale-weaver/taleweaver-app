@@ -67,7 +67,7 @@ export default function Discription() {
                 <div className='flex flex-row w-full mb-16'>
                     <div className='flex flex-start text-xl mr-8'>現正投票中: 第{page_number}頁</div>
                     <div className='self-center text-xl mr-8'>
-                        <Countdown date={intervalEnd} />
+                        <Countdown date={intervalEnd}/>
                     </div>
                 </div>
             )
