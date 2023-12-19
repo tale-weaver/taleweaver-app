@@ -5,16 +5,19 @@ import { Separator } from "@/components/ui/separator";
 import { PageCard } from "./page-card";
 import { StoryPageInfo } from "@/data/story-page-info";
 import { useState } from "react";
-import type { PagePreview } from "@/types/page";
+import type { PageType } from "@/types/page";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface StoryPageProps {
-  pages?: PagePreview[];
+  pages?: PageType[];
   book_status?: string;
+  isLoading: boolean;
 }
 
 const StoryPagePrimary = ({
-  book_status = "voting",
+  book_status = "",
   pages = [],
+  isLoading,
 }: StoryPageProps) => {
   const [isProtrait, setIsPortrait] = useState(true);
   const gridColsLiteral = isProtrait
@@ -26,26 +29,39 @@ const StoryPagePrimary = ({
       ? StoryPageInfo.finished_primary
       : StoryPageInfo.comfirmed;
 
+  const is_voting = false; // primary page is never voting
+
   return (
     <>
-      <div className="flex items-center justify-between">
+      {isLoading ? (
         <div className="space-y-1">
-          <h2 className="text-2xl font-semibold tracking-tight">
-            {info.title}
-          </h2>
-          <p className="text-sm text-muted-foreground">{info.description}</p>
+          <Skeleton className="h-8 w-1/4" />
+          <Skeleton className="h-4 w-2/5" />
         </div>
-        {pages.length > 0 && (
-          <Button
-            variant="secondary"
-            onClick={() => setIsPortrait(!isProtrait)}
-          >
-            {isProtrait ? "Square View" : "Portrait View"}
-          </Button>
-        )}
-      </div>
+      ) : (
+        <div className="flex items-center justify-between">
+          <div className="space-y-1">
+            <h2 className="text-2xl font-semibold tracking-tight">
+              {info.title}
+            </h2>
+            <p className="text-sm text-muted-foreground">{info.description}</p>
+          </div>
+          {pages.length > 0 && (
+            <Button
+              variant="secondary"
+              onClick={() => setIsPortrait(!isProtrait)}
+            >
+              {isProtrait ? "Square View" : "Portrait View"}
+            </Button>
+          )}
+        </div>
+      )}
+
       <Separator className="my-4" />
-      {pages.length === 0 ? (
+
+      {isLoading ? (
+        <Skeleton className="h-96 w-full" />
+      ) : pages.length === 0 ? (
         <div className="flex flex-col items-center justify-center h-[400px]">
           <p className="text-lg font-semibold text-center">
             {info.nopagesmessage}
@@ -57,14 +73,15 @@ const StoryPagePrimary = ({
             <div className={`grid ${gridColsLiteral} gap-x-4 gap-y-8 mb-4`}>
               {pages.map((p, index) => (
                 <PageCard
-                  key={p.image}
+                  key={p.page_id}
                   page={p}
                   className={isProtrait ? "w-[250px]" : "w-[150px]"}
                   aspectRatio={isProtrait ? "portrait" : "square"}
                   width={isProtrait ? 250 : 150}
                   height={isProtrait ? 330 : 150}
                   page_id={index}
-                  is_voting={book_status === "voting"}
+                  is_voting={is_voting}
+                  allpages={pages}
                 />
               ))}
             </div>
