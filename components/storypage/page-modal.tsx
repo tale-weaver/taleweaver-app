@@ -10,15 +10,18 @@ import {
 import PageVeiwer from "./page-veiwer";
 import { ArrowBigUpDash } from "lucide-react";
 import { motion } from "framer-motion";
+import type { PageType } from "@/types/page";
 
 export function PageModal({
   children,
   page_id = 0,
   is_voting = false,
+  allpages = [],
 }: {
   children: React.ReactNode;
   page_id?: number;
   is_voting?: boolean;
+  allpages?: PageType[];
 }) {
   const arrowVariants = {
     move: {
@@ -37,7 +40,11 @@ export function PageModal({
         <DialogHeader>
           <DialogTitle></DialogTitle>
         </DialogHeader>
-        <PageVeiwer className="rounded-xl" page_id={page_id} />
+        <PageVeiwer
+          className="rounded-xl"
+          page_id={page_id}
+          allpages={allpages}
+        />
         {is_voting && (
           <DialogFooter>
             <motion.div variants={arrowVariants} animate="move">

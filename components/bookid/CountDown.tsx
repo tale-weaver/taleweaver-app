@@ -1,12 +1,14 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-const Countdown = ({date}:{date:any}) => {
-  const router =  useRouter();
+const CountDown = ({ date }: { date: any }) => {
+  const router = useRouter();
   const targetTime = new Date(date.time_stamp).getTime();
-  const [remainingTime, setRemainingTime] = useState(calculateRemainingTime(targetTime));
+  const [remainingTime, setRemainingTime] = useState(
+    calculateRemainingTime(targetTime)
+  );
 
   useEffect(() => {
     // 更新剩餘時間
@@ -29,8 +31,12 @@ const Countdown = ({date}:{date:any}) => {
     }
 
     const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const hours = Math.floor(
+      (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor(
+      (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+    );
     const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
     return { days, hours, minutes, seconds };
@@ -38,9 +44,9 @@ const Countdown = ({date}:{date:any}) => {
 
   return (
     <div>
-      <p>{`${remainingTime.days} d, ${remainingTime.hours} h, ${remainingTime.minutes} m, ${remainingTime.seconds} s`}</p>
+      <p>{`還剩下 ${remainingTime.days} d, ${remainingTime.hours} h, ${remainingTime.minutes} m, ${remainingTime.seconds} s`}</p>
     </div>
   );
 };
 
-export default Countdown;
+export default CountDown;
