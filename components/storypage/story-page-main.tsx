@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { useEffect } from "react";
 import StoryPagePrimary from "./story-page-primary";
 import StoryPageSecondary from "./story-page-secondary";
 import { useSearchParams } from "next/navigation";
@@ -24,8 +24,14 @@ const StoryPageMain = () => {
   } = useQuery({
     queryKey: ["story", book_id],
     queryFn: () => getBook(book_id),
-    enabled: !!book_id,
+    enabled: false,
   });
+
+  useEffect(() => {
+    if (book_id) {
+      refetch();
+    }
+  }, [book_id]);
 
   console.log(book);
 
@@ -43,6 +49,7 @@ const StoryPageMain = () => {
           pages={book?.records.pages.ongoing as PageType[]}
           book_status={book?.records.state}
           isLoading={isLoading}
+          refetch={refetch}
         />
       </section>
     </>
