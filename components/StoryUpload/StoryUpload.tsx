@@ -26,14 +26,13 @@ const StoryUpload: React.FC = () => {
       {uploadData ? (
         <div className="fixed flex items-center justify-center bg-white bg-opacity-80">
           <ImageUploadConfirm
-            storyName={uploadData.storyName}
+            bookname={uploadData.storyName}
             page={uploadData.page}
+            imageFile = {uploadData.imageFile}
             selectedImage={uploadData.selectedImage}
             imageDescription={uploadData.imageDescription}
-            show={true}
             onCancel={() => setUploadData(null)}
-            onConfirm={handleConfirm}
-          />
+            onConfirm={handleConfirm} />
         </div>
       ) : (
         <div>

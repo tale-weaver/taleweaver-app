@@ -42,12 +42,12 @@ export default function ViewBasic() {
   } else {
     const records = data.records;
     console.log(records);
-    const src = records.bookurl.replace("./bin", "http://127.0.0.1:5000/bin");
+
     return (
       // 還沒設link到story-read
       <div className="w-full">
         <div className="relative h-96">
-          <Image src={src} alt="Post" fill className="object-cover" />
+          <Image src={records.bookurl} alt="Post" fill className="object-cover" />
         </div>
 
         <div className="grid grid-flow-col mt-4">

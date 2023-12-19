@@ -5,7 +5,7 @@ import LikeButton from '../LikeButton';
 import CommentButton from '../CommentButton';
 import { BookText, ArrowUpSquare, Vote } from "lucide-react";
 
-export default function StoryCover(story: any) {
+export default function Book({story}:{story: any}) {
     const icons = (state: string) => {
         if (state === 'finished') return <BookText />
         else if (state === 'submitting') return <ArrowUpSquare />
@@ -14,8 +14,8 @@ export default function StoryCover(story: any) {
     }
 
     return (
-        <div className='static border m-2 p-4 h-84 hover:bg-gray-400 hover:text-neutral-50'>
-            <div className='relative h-48 cursor-pointer'>
+        <div className='static m-2 h-84'>
+            <div className='relative h-48 w-72 cursor-pointer'>
                 <Link href={{
                     pathname: '/story/book_id',
                     query: { book_id: story.book_id },
@@ -35,16 +35,7 @@ export default function StoryCover(story: any) {
                 <div className='flex flex-row justify-center self-start mt-2'>
                     <div className='mr-2'>{icons(story.state)}</div>
                     <p className='text-lg mb-2'>{story.bookname}</p>
-                </div>
-                {/* <p>Post Date: {story.date}</p> */}
-                <div className='grid grid-flow-col self-end'>
-                    <div className='mr-4'><LikeButton bookId={story.book_id} liked={false} like_nums={story.numlikes} /></div>
-                    <CommentButton comment_nums={story.numcomments} />
-                </div>
-                {/* <p>Likes: {story.numlikes}</p>
-                <p>Comments: {story.numcomments}</p> */}
-                {/* <p>Status: {story.state}</p> */}
-                               
+                </div>                               
             </div>
 
         </div>
