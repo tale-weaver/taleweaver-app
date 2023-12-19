@@ -18,35 +18,31 @@ const getUserInfo = async () => {
 
 export function NavContainer() {
   const { data: session } = useSession();
-  const [enabled, setEnabled] = useState(false);
   const { user, setUser } = useContext(AppContext);
 
-  if (session?.user) {
-    console.log("token", (session?.user as any)?.accessToken);
-    axios.defaults.headers.common["Authorization"] = `Bearer ${
-      (session?.user as any)?.accessToken
-    }`;
-  }
+  // set axios header
+  useEffect(() => {
+    if (session?.user) {
+      console.log("token", (session?.user as any)?.accessToken);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${
+        (session?.user as any)?.accessToken
+      }`;
+    }
+  }, [session?.user]);
 
-  const {
-    status,
-    fetchStatus,
-    data: getUser,
-  } = useQuery({
+  // when session has user, fetch user info
+  const { status, data: gotUser } = useQuery({
     queryKey: ["user", session?.user.name],
     queryFn: getUserInfo,
-    enabled: !!enabled,
+    enabled: !!session?.user,
   });
 
-  useEffect(() => {
-    setEnabled(true);
-  }, [(session?.user as any)?.accessToken]);
-
+  // when user info is fetched, set user
   useEffect(() => {
     if (status === "success") {
-      setUser(getUser);
+      setUser(gotUser);
     }
-  }, [status]);
+  }, [status, gotUser]);
 
   return (
     <div className="container hidden md:flex md:justify-between md:items-center h-16">
@@ -60,9 +56,12 @@ export function NavContainer() {
         <MainNav />
       </div>
       <div id="nav-right">
-        {getUser?.record.username ? (
+        {user?.record.username ? (
           <UserAuth
-            imgUrl={user?.record.avatar as string}
+            imgUrl={
+              (user?.record.avatar as string) ||
+              "https://gravatar.com/avatar/b6eada68a0879b7af38a4ddf32e06aa7?s=400&d=robohash&r=x"
+            }
             username={user?.record.username}
             is_premium={user?.record.role === "premium"}
           />
