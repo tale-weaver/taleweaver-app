@@ -102,7 +102,7 @@ const Intro = ({ }) => {
       </div>
       
       <div className="mt-8">
-        {(status === 'authenticated') && <Bar />}
+        {(session?.user) && <Bar />}
       </div>
       <div className="w-full grid justify-center mt-8">
         <Link href={'/story'}>
