@@ -89,14 +89,13 @@ export function StorySection(query: any) {
         return <p>Error: {error.message}</p>
     }
 
-    else {        
-        
+    else {                
         const stories = data.records;
         console.log(stories);
         const filteredStories = stories?.filter((story: any) => {
             return (
                 (!(query.query.state) || story.state === query.query.state)
-                && (!(query.query.term) || story.bookname.toLowerCase().includes(query.query.term))
+                && (!(query.query.term) || story.bookname.toLowerCase().includes(query.query.term?.toLowerCase()))
             )
         })
 
