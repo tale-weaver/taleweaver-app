@@ -1,11 +1,10 @@
-'use client';
+// 'use client';
 
 import React, { useEffect, useState } from "react";
 import { Button, buttonVariants } from '@/components/ui/button'
 import { Heart } from "lucide-react";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface LikeButtonProps {
   bookId: string; // 傳給後端的 book_id
@@ -19,6 +18,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ bookId, liked, like_nums }) => 
 
   const [endpointParam, setEndpointParam] = useState(bookId);
 
+  const router = useRouter();
   const searchParams = useSearchParams();
   const params = searchParams.get("book_id");
 
@@ -29,27 +29,15 @@ const LikeButton: React.FC<LikeButtonProps> = ({ bookId, liked, like_nums }) => 
     if (bookId == undefined) {
       setEndpointParam(params);
     }
-  }, [like_nums]) //, liked])
+  }, [like_nums]) // , liked])
 
   // console.log("Receive the params:", endpointParam, liked, like_nums)
-
-  // const queryClient = useQueryClient();
-
-  // const { data } = useQuery(
-  //   ['story', endpointParam],
-  //   async () => {
-  //     const response = await axios.get(`http://127.0.0.1:5000/story/${endpointParam}`);
-  //     return response.data;
-  //   },
-  //   {
-  //     initialData: { records: { numlikes: like_nums } }, // Set initial data based on the current like count
-  //   }
-  // );
 
   const handleLike = async () => {
     try {
       // update like state
       const response = await axios.post(`http://127.0.0.1:5000/story/${endpointParam}/like`);
+      // router.refresh();
 
       // console.log(endpointParam, liked, like_nums)
 
@@ -60,13 +48,13 @@ const LikeButton: React.FC<LikeButtonProps> = ({ bookId, liked, like_nums }) => 
 
         setLikeCount(data.records.numlikes);
         // setIsFilledHeart(prev => !prev);
-
-        const router = useRouter();
-        router.refresh();
+        // router.refresh();
         
       } else {
         console.error('Failed to like the story.');
       }
+
+      router.refresh();
     } catch (error) {
       console.error('Error liking the story:', error);
     }
