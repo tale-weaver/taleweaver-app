@@ -42,9 +42,6 @@ export function PageCard({
       ? 100
       : page.voted_by_user_ids.length * 10;
 
-  console.log("user_id", user?.record._id);
-  console.log("page_voters", page.voted_by_user_ids);
-
   const is_user_voted = page.voted_by_user_ids.includes(user?.record._id || 0);
 
   return (

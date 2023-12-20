@@ -41,13 +41,16 @@ export default function ViewBasic() {
     return <p>Error: {error.message}</p>;
   } else {
     const records = data.records;
-    console.log(records);
-
     return (
       // 還沒設link到story-read
       <div className="w-full">
         <div className="relative h-96">
-          <Image src={records.bookurl} alt="Post" fill className="object-cover" />
+          <Image
+            src={records.bookurl}
+            alt="Post"
+            fill
+            className="object-cover"
+          />
         </div>
 
         <div className="grid grid-flow-col mt-4">
