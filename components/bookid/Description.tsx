@@ -6,6 +6,7 @@ import { Upload } from "lucide-react";
 import Countdown from "./CountDown";
 import { useSearchParams } from "next/navigation";
 import { Skeleton } from "../ui/skeleton";
+import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 
 export default function Discription({
   isPending,
@@ -13,7 +14,15 @@ export default function Discription({
   data,
   error,
   refetch,
-}: any) {
+}: {
+  isPending: boolean;
+  isError: boolean;
+  data: any;
+  error: any;
+  refetch: (
+    options?: RefetchOptions
+  ) => Promise<QueryObserverResult<any, Error>>;
+}) {
   const searchParams = useSearchParams();
   const book_id = searchParams.get("book_id");
 
