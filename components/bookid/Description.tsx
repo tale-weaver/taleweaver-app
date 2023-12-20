@@ -5,7 +5,7 @@ import Link from "next/link";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { Upload } from "lucide-react";
-import Countdown from "./CountDown";
+import CountDown from "./CountDown";
 import { useSearchParams } from "next/navigation";
 import { Skeleton } from "../ui/skeleton";
 
@@ -37,6 +37,7 @@ export default function Discription({
     return <p>Error: {error.message}</p>;
   } else {
     const records = data.records;
+    console.log('refresh',records);
     const timearray: any = records.time_intervals;
     const currentTime = new Date().getTime();
     const intervalStart =
@@ -64,7 +65,7 @@ export default function Discription({
             <div className="flex flex-col">
               <div className="">現正投稿中: 第{page_number}頁</div>
               <div className="mb-2">Now Submitting: page {page_number}</div>
-              <Countdown
+              <CountDown
                 date={intervalEnd}
                 setRefetchToggle={setRefetchToggle}
               />
@@ -72,8 +73,8 @@ export default function Discription({
             <div className="self-start pt-2">
               <Link
                 href={{
-                  pathname: "/storyupload/book_id",
-                  query: { book_id: book_id },
+                  pathname: '/storyupload/book_id/round',
+                  query: {book_id: book_id, round: intervalStart.round}
                 }}
               >
                 <Button
@@ -94,7 +95,10 @@ export default function Discription({
           <div className="flex flex-col justify-start items-start text-lg font-serif">
             <div className="">現正投票中: 第{page_number}頁</div>
             <div className="mb-2">Now Voting: page {page_number}</div>
-            <Countdown date={intervalEnd} />
+            <CountDown 
+                date={intervalEnd} 
+                setRefetchToggle={setRefetchToggle}
+            />
           </div>
         </div>
       );
