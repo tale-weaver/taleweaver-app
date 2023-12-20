@@ -38,7 +38,7 @@ export default function StoryCover(story: any) {
                 </div>
                 {/* <p>Post Date: {story.date}</p> */}
                 <div className='grid grid-flow-col self-end'>
-                    <div className='mr-4'><LikeButton bookId={story.book_id} liked={false} like_nums={story.numlikes} /></div>
+                    <div className='mr-4'><LikeButton bookId={story.book_id} liked={story.liked} like_nums={story.numlikes} /></div>
                     <CommentButton comment_nums={story.numcomments} />
                 </div>
                 {/* <p>Likes: {story.numlikes}</p>

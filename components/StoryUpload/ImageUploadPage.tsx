@@ -20,13 +20,12 @@ interface UploadData {
 
 const ImageUploadPage: React.FC<ImageUploadPageProps> = ({ onUpload }) => {
   const searchParams = useSearchParams();
-  const params = searchParams.get('book_id');
+  const params_bookId = searchParams.get('book_id');
+  const params_round = searchParams.get('round');
 
-  // console.log("Now book_id:", params);
-
-  const [bookId, setBookId] = useState(params); 
+  const [bookId, setBookId] = useState(params_bookId); 
   const [storyName, setStoryName] = useState("Book");
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(Number(params_round));
 
   const fileInputRef = useRef<HTMLInputElement | null>(null); // 指定 ref 的類型為 HTMLInputElement 或 null
   

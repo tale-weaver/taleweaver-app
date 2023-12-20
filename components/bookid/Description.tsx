@@ -70,7 +70,7 @@ export default function Discription({
               <Link
                 href={{
                   pathname: "/storyupload/book_id",
-                  query: { book_id: book_id },
+                  query: { book_id: book_id, round: page_number },
                 }}
               >
                 <Button

@@ -6,7 +6,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 
 interface ImageUploadConfirmProps {
-  bookId: number;
   bookname: string;
   page: number;
   imageFile: File;
