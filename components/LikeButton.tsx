@@ -14,7 +14,7 @@ interface LikeButtonProps {
 
 const LikeButton: React.FC<LikeButtonProps> = ({ bookId, liked, like_nums }) => {
   const [likeCount, setLikeCount] = useState(like_nums);
-  // const [isFilledHeart, setIsFilledHeart] = useState(liked);
+  const [isFilledHeart, setIsFilledHeart] = useState(liked);
 
   const [endpointParam, setEndpointParam] = useState(bookId);
 
@@ -24,14 +24,15 @@ const LikeButton: React.FC<LikeButtonProps> = ({ bookId, liked, like_nums }) => 
 
   useEffect(() => {
     setLikeCount(like_nums);
-    // setIsFilledHeart(liked)
+    setIsFilledHeart(liked)
     
     if (bookId == undefined) {
       setEndpointParam(params);
     }
-  }, [like_nums]) // , liked])
+  }, [like_nums, liked])
 
-  // console.log("Receive the params:", endpointParam, liked, like_nums)
+  console.log("Liked params:", liked)
+  console.log("Filled params:", isFilledHeart)
 
   const handleLike = async () => {
     try {
@@ -47,7 +48,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ bookId, liked, like_nums }) => 
         // console.log(data)
 
         setLikeCount(data.records.numlikes);
-        // setIsFilledHeart(prev => !prev);
+        setIsFilledHeart(prev => !prev);
         // router.refresh();
         
       } else {
@@ -63,12 +64,12 @@ const LikeButton: React.FC<LikeButtonProps> = ({ bookId, liked, like_nums }) => 
   return (
     <div className="flex items-center">
       {/* like = add to user collection; unlike = remove from user collection */}
-      {/* <Button variant={isFilledHeart ? "destructive" : "outline"} onClick={handleLike}>
+      <Button variant={isFilledHeart ? "destructive" : "outline"} onClick={handleLike}>
         <Heart color={isFilledHeart ? "white" : "black"} />
-      </Button> */}
-      <Button variant="outline" onClick={handleLike}>
-        <Heart color="black" />
       </Button>
+      {/* <Button variant="outline" onClick={handleLike}>
+        <Heart color="black" />
+      </Button> */}
       <span className="pl-2"> {likeCount}</span>
     </div>
   );

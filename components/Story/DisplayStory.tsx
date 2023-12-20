@@ -121,6 +121,7 @@ export function StorySection(query: any) {
                             bookurl={story.bookurl}
                             bookname={story.bookname}
                             book_id={story.book_id}
+                            liked={story.liked}
                             numlikes={story.numlikes}
                             numcomments={story.numcomments}
                             state={story.state}
