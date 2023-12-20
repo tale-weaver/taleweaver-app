@@ -60,7 +60,7 @@ export default function Discription({
     if (status === "submitting") {
       return (
         <div className="w-full mt-4 mb-8">
-          <div className="grid grid-cols-6 items-start text-lg font-serif">
+          <div className="flex flex-row items-start text-lg font-serif">
             <div className="flex flex-col">
               <div className="">現正投稿中: 第{page_number}頁</div>
               <div className="mb-2">Now Submitting: page {page_number}</div>

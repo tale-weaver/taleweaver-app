@@ -15,7 +15,7 @@ const Intro = ({ }) => {
   return (
     <div>
       <div className="w-full flex flex-row">
-        <div className="w-1/12 h-screen mt-4">
+        <div className="w-1/12 h-screen">
           <div className="grid grid-cols-4 h-screen">
             <div className="bg-slate-900"></div>
             <div className="bg-slate-600"></div>
@@ -24,7 +24,7 @@ const Intro = ({ }) => {
           </div>
 
         </div>
-        <div className="w-11/12 h-screen mt-4">
+        <div className="w-11/12 h-screen">
           <div className="grid grid-cols-3 grid-rows-3 w-full h-screen">
             <div className="col-span-2 relative">
               <Image
